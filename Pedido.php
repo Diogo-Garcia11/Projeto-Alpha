@@ -7,16 +7,20 @@
 </head>
 <body>
 <?php
+session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
 
-session_start();
+    $Botão = $_POST['Enviar'];
 
-$_SESSION['Nome'] = $_POST['Nome'];
-$_SESSION['Endereco'] = $_POST['Endereco'];
-$_SESSION['Valor'] = $_POST['Valor'];
+    $_SESSION['Nome'] = $_POST['Nome'];
+    $_SESSION['Endereco'] = $_POST['Endereco'];
+    $_SESSION['Valor'] = $_POST['Valor'];
 
-echo "<a href='Pedido.php'>Continuar</a>";
+    if($Botão == "Confirmar pagamento")
+    {
+        header('location:Pedido.php');
+    }
 
 }
 
@@ -36,7 +40,7 @@ else{
         <option value="10">10X</option>
         <option value="12">12X</option>
     </select>
-    <input type="submit" name="Enviar" value="Confirmar Endereço"><br>
+    <input type="submit" name="Enviar" value="Confirmar Pagamento"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
     </form>
 </body>

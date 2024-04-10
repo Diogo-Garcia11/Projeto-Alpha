@@ -7,20 +7,24 @@
 </head>
 <body>
 <?php
+session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
+    $Botão = $_POST['Enviar'];
 
-session_start();
 
-$_SESSION['Nome'] = $_POST['Nome'];
-$_SESSION['Endereco'] = $_POST['Endereco'];
-$_SESSION['Valor'] = $_POST['Valor'];
+    $_SESSION['Nome'] = $_POST['Nome'];
+    $_SESSION['Endereco'] = $_POST['Endereco'];
+    $_SESSION['Valor'] = $_POST['Valor'];
 
-echo "<a href='Pgto.php'>Continuar</a>";
+
+    if($Botão == "Confirmar Endereço")
+    {
+        header('location:Pgto.php');
+    }
+
 
 }
-
-
 else{
 ?>
     <form action="Cadastro.php?valor==enviado"  method="post">

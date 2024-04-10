@@ -13,20 +13,22 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 session_start();
 
 $_SESSION['Nome'] = $_POST['Nome'];
-$_SESSION['Endereco'] = $_POST['Endereco'];
-$_SESSION['Valor'] = $_POST['Valor'];
+$_SESSION['FormaPgto'] = $_POST['Opcao'];
+$_SESSION['CondicaoPgto'] = $_POST['Parcelamento'];
 
-echo "<a href='Pedido.php'>Continuar</a>";
-
+if($Botão == "Confirmar pagamento")
+    {
+        header('location:Pedido.php');
+    }
 }
 
 
 else{
 ?>
     <form action="Pgto.php?valor==enviado"  method="post">
-    <label for="Opcao">Selecione a opção de pagamento</label>
-    <input type="radio" name="Opcao" id="Pix"><br>
-    <input type="radio" name="Opcao" id="Cartao"><br>
+    <label for="Opcao">Selecione a opção de pagamento</label><br>
+    <input type="radio" name="Opcao" id="Pix">Pix<br>
+    <input type="radio" name="Opcao" id="Cartao">Cartão<br>
     <select name="Parcelamento" id="Parcelamento">
         <option default value="1">Selecione a quantidade de parcelas</option>
         <option value="2">2X</option>
@@ -35,22 +37,30 @@ else{
         <option value="8">8X</option>
         <option value="10">10X</option>
         <option value="12">12X</option>
-    </select>
+    </select><br>
     <input type="submit" name="Enviar" value="Confirmar Endereço"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
-    </form>'
+    </form>
     
     <script>
-        var elemento = getElementById("Parcelamento")
-        var pagamento = getElementsByName("Opcao").value
-        if(pagamento = "Pix")
+        document.getElementById('Pix').addEventListener('change', function() 
         {
-            elemento.style.display ="block";
+            if(this.checked) 
+            {
+                document.getElementById('Parcelamento').style.display = 'none';
+                document.getElementById('Parcelamento').value = '1';
+            }
         }
-        else if(pagamento = "Cartao")
-        {
-            elemento.style.display ="none";
-        }
+    );
+
+        document.getElementById('Cartao').addEventListener('change', function() 
+                {
+                    if(this.checked) 
+                    {
+                        document.getElementById('Parcelamento').style.display = '';
+                    }
+                }
+            );
     </script>
 </body>
 </html>
