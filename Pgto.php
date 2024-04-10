@@ -7,25 +7,27 @@
 </head>
 <body>
 <?php
+
+session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
 
-session_start();
+    $Botao = $_POST['Enviar'];
 
-$_SESSION['Nome'] = $_POST['Nome'];
-$_SESSION['FormaPgto'] = $_POST['Opcao'];
-$_SESSION['CondicaoPgto'] = $_POST['Parcelamento'];
+    $_SESSION['Nome'] = $_POST['Nome'];
+    $_SESSION['FormaPgto'] = $_POST['Opcao'];
+    $_SESSION['CondicaoPgto'] = $_POST['Parcelamento'];
+    
 
-if($Botão == "Confirmar pagamento")
+    if($Botao == "Confirmar Pagamento")
     {
-        header('location:Pedido.php');
+        header('Location: Pedido.php');
     }
+
 }
-
-
 else{
 ?>
-    <form action="Pgto.php?valor==enviado"  method="post">
+    <form action="Pgto.php?valor=enviado"  method="post">
     <label for="Opcao">Selecione a opção de pagamento</label><br>
     <input type="radio" name="Opcao" id="Pix">Pix<br>
     <input type="radio" name="Opcao" id="Cartao">Cartão<br>
@@ -38,7 +40,7 @@ else{
         <option value="10">10X</option>
         <option value="12">12X</option>
     </select><br>
-    <input type="submit" name="Enviar" value="Confirmar Endereço"><br>
+    <input type="submit" name="Enviar" value="Confirmar Pagamento"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
     </form>
     
@@ -61,6 +63,7 @@ else{
                     }
                 }
             );
+        
     </script>
 </body>
 </html>

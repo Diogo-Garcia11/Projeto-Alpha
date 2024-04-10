@@ -17,17 +17,16 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     $_SESSION['Endereco'] = $_POST['Endereco'];
     $_SESSION['Valor'] = $_POST['Valor'];
 
-
     if($Botão == "Confirmar Endereço")
     {
         header('location:Pgto.php');
+        
     }
-
-
+    
 }
 else{
 ?>
-    <form action="Cadastro.php?valor==enviado"  method="post">
+    <form action="Cadastro.php?valor=enviado"  method="post">
     <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35"><br>
     <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"><br>
     <input type="text" name="Valor" id="Valor" placeholder="Valor"><br>
