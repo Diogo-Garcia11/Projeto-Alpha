@@ -27,9 +27,9 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 else{
 ?>
     <form action="Cadastro.php?valor=enviado"  method="post">
-    <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35"><br>
-    <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"><br>
-    <input type="text" name="Valor" id="Valor" placeholder="Valor"><br>
+    <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35" required><br>
+    <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"required><br>
+    <input type="text" name="Valor" id="Valor" placeholder="Valor"required><br>
     <input type="submit" name="Enviar" value="Confirmar Endereço"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
     </form>

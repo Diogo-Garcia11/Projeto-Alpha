@@ -34,12 +34,37 @@ else{
     <select name="Parcelamento" id="Parcelamento">
         <option default value="1">Selecione a quantidade de parcelas</option>
         <option value="2">2X</option>
+        <option value="3">3X</option>
         <option value="4">4X</option>
+        <option value="5">5X</option>
         <option value="6">6X</option>
+        <option value="7">7X</option>
         <option value="8">8X</option>
+        <option value="9">9X</option>
         <option value="10">10X</option>
+        <option value="11">11X</option>
         <option value="12">12X</option>
     </select><br>
+
+    <div id="Parcela">
+    <label for="">Valor de Cada parcela:</label><br>
+    <?php
+    $Parcelamento = $_POST['Parcelamento'];
+  
+    $ValorParcela = $_SESSION['Valor'] / $Parcelamento;
+    $_SESSION['ValorParcela'] = $ValorParcela;
+    echo $ValorParcela;
+    ?>
+    </div>
+
+    <div id="Valor">
+    <label for="">Valor do Produto:</label><br>
+    <?php
+    
+    echo $_SESSION['Valor'];
+    ?>
+    </div>
+
     <input type="submit" name="Enviar" value="Confirmar Pagamento"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
     </form>
@@ -63,7 +88,7 @@ else{
                     }
                 }
             );
-        
+  
     </script>
 </body>
 </html>

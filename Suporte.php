@@ -57,7 +57,7 @@ else
     <form name="form1" action="Suporte.php?valor=enviado" method="POST">
   		Opção de Compra: <br>
         <P> Selecione a opção de pagamento: <BR>
-            <input type="radio" name="opcao" value="boleto"> Boleto <BR>
+            <input type="radio" name="opcao" value="pix"> Pix <BR>
             <input type="radio" name="opcao" value="cartao">Cartão <br></p>
             Digite a quantidade de parcela(s):  <br>
             <input class="input" type="text" placeholder="Qtd Parcela" name="parcela"><BR><p>

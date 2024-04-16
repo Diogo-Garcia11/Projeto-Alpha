@@ -24,9 +24,9 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         echo "Nome: ".$_SESSION['Nome']."<br>";
         echo "Endereço: ".$_SESSION['Endereco']."<br>";
         echo "Forma de Pagamento: ".$_SESSION['FormaPgto']."<br>";
-        echo "Condição de pagamento: ".$_SESSION['CondicaoPgto']."<br>";
-        echo "Valor da Parcela: ".$ValorParcela."<br>";
-        echo "Valor do pedido: ".$bunda."<br>";
+        echo "Condição de pagamento(Quantidade de Parcelas): ".$_SESSION['CondicaoPgto']."<br>";
+        echo "Valor da Parcela: ".$_SESSION['ValorParcela']."<br>";
+        echo "Valor do pedido: ".$$_SESSION['Valor']."<br>";
         
         
     }
