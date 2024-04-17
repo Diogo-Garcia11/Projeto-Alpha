@@ -29,13 +29,13 @@ else
     ?>
     <form action="Login.php?valor=enviado" method="post">
     Usuário: <br>
-    <input type="text" placeholder="Email" name="usuario"><br>
+    <input type="email" placeholder="Email" name="usuario"><br>
     Senha: <br>
     <input type="password" name="senha" placeholder="Senha" maxlenght="8"><br>
 
-    <input type="submit" value="Logar">
-    <input type="submit" value="Cadastro">
-    <input type="reset" value="Limpar">
+    <input type="submit" value="Logar" name="Botao">
+    <input type="submit" value="Cadastro" name="Botao">
+    <input type="reset" value="Limpar" name="Botao">
 
     </form>
     <?php
