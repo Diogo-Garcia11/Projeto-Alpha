@@ -12,6 +12,7 @@ session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
     
+    $_SESSION['Valor'] = $_POST['Valor'];
 
     if (isset($_POST['Opcao'])) 
     {

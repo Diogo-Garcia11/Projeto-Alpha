@@ -15,7 +15,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 
     $_SESSION['Nome'] = $_POST['Nome'];
     $_SESSION['Endereco'] = $_POST['Endereco'];
-    $_SESSION['Valor'] = $_POST['Valor'];
+    
 
     if($Botão == "Confirmar Endereço")
     {
