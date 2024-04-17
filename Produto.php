@@ -11,8 +11,9 @@
     {
         $_SESSION['Valor'] = $_POST['Valor'];
         $_SESSION['Descricao']= $_POST['Descricao'];
+        $Botao = $_POST['Enviar'];
 
-        if($Botao == "Confirmar Pagamento")
+        if($Botao == "Comprar")
         {
             header('location:Login.php');
         }
@@ -25,7 +26,7 @@
     Valor: <br>
     <input type="text" name="Valor" id="Valor" placeholder="Valor"required><br>
     <input type="text" name="Descricao" id="Descricao" placeholder="Descrição"required><br>
-    <input type="submit"name="Enviar" value="Comprar">
+    <input type="submit" name="Enviar" value="Comprar">
     </form>
 </body>
 </html>
