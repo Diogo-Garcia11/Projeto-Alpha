@@ -13,11 +13,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 
     $Botão = $_POST['Enviar'];
 
-    $_SESSION['Nome'] = $_POST['Nome'];
-    $_SESSION['Endereco'] = $_POST['Endereco'];
-    $_SESSION['Valor'] = $_POST['Valor'];
 
-    $ValorParcela = $_SESSION['Valor'] / $_SESSION['CondicaoPgto'];
 
     if($Botão == "Valor da Compra")
     {
@@ -26,7 +22,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         echo "Forma de Pagamento: ".$_SESSION['FormaPgto']."<br>";
         echo "Condição de pagamento(Quantidade de Parcelas): ".$_SESSION['CondicaoPgto']."<br>";
         echo "Valor da Parcela: ".$_SESSION['ValorParcela']."<br>";
-        echo "Valor do pedido: ".$$_SESSION['Valor']."<br>";
+        echo "Valor do pedido: ".$_SESSION['Valor']."<br>";
         
         
     }
