@@ -21,7 +21,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
         session_start();
         $_SESSION["control"] = "new";
-        echo "<a href=\"Cadastro.php\">Novo</a>"
+        echo "<a href=\"Cadastro.php\">Novo</a>";
     }
 }
 else
