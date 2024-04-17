@@ -29,7 +29,9 @@ else{
     <form action="Cadastro.php?valor=enviado"  method="post">
     <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35" required><br>
     <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"required><br>
-    <input type="text" name="Valor" id="Valor" placeholder="Valor"required><br>
+    <input type="email" name="Email" placeholder="Email" required><br>
+    <input type="password" name="Senha" placeholder="Senha">
+    <input type="password" name="ConfSenha" placeholder="Confirme a Senha">
     <input type="submit" name="Enviar" value="Confirmar Endereço"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
     </form>
