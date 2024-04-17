@@ -69,7 +69,7 @@ else
     Usuário: <br>
     <input type="email" placeholder="Email" name="Usuario"><br>
     Senha: <br>
-    <input type="password" name="senha" placeholder="Senha" maxlenght="8"><br>
+    <input type="password" name="Senha" placeholder="Senha" maxlenght="8"><br>
 
     <input type="submit" value="Logar" name="Botao">
     <input type="submit" value="Cadastro" name="Botao">
