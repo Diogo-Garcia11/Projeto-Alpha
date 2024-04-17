@@ -10,12 +10,50 @@
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
     $Botao = $_POST ["Botao"];
+    $Usuario = $_POST ["Usuario"];
+    $Senha = $_POST ["Senha"];
     
     if ($Botao == "Login")
     {
         session_start();
         $_SESSION["control"] = "logado";
         include "Logado.php";
+        
+    try
+    {
+        $Comando=$conexao->prepare("INSERT INTO TB_CADASTRO (USUARIO, SENHA)
+            VALUES (?,?)");
+
+                $Comando->bindParam(1, $Usuario);
+                $Comando->bindParam(2, $Senha);
+                
+        if ($Comando->execute())
+        {
+            if ($Comando->rowCount() >0)
+            {
+                echo"<script> alert('Contato registrado com sucesso!')</script>";
+                echo ('<meta http equiv="refresh"content=0;""Login.php">');
+                
+                $Email = null;
+                $Senha = null;
+                
+                
+
+            }
+            else
+            {
+                    echo "Erro ao tentar efetivar o contato.";
+            }
+        }
+        else
+        {
+            throw new PDOException("Erro: Não foi possível executar a declaração sql.");
+        }
+    }
+    catch (PDOException $erro)
+    {
+        echo"Erro" . $erro->getMessage();
+    }
     }
     if ($Botao == "Cadastro")
     {
@@ -29,7 +67,7 @@ else
     ?>
     <form action="Login.php?valor=enviado" method="post">
     Usuário: <br>
-    <input type="email" placeholder="Email" name="usuario"><br>
+    <input type="email" placeholder="Email" name="Usuario"><br>
     Senha: <br>
     <input type="password" name="senha" placeholder="Senha" maxlenght="8"><br>
 

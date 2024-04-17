@@ -1,5 +1,5 @@
 <?php
-$Bco = 'dbContato';
+$Bco = 'bd_cadastro';
 $Usuario = 'root';
 $Senha ='';
 

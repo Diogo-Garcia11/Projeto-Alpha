@@ -30,7 +30,7 @@ else{
     <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35" required><br>
     <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"required><br>
     <input type="email" name="Email" placeholder="Email" required><br>
-    <input type="password" name="Senha" placeholder="Senha">
+    <input type="password" name="Senha" placeholder="Senha"><br>
     <input type="password" name="ConfSenha" placeholder="Confirme a Senha">
     <input type="submit" name="Enviar" value="Confirmar Endereço"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
