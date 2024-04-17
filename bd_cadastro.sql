@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `tb_cadastro`;
 CREATE TABLE IF NOT EXISTS `tb_cadastro` (
-  `USUARIO` varchar(80) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `SENHA` varchar(40) COLLATE utf8mb3_unicode_ci NOT NULL
+  `USUARIO` varchar(60) COLLATE utf8mb3_unicode_ci NOT NULL UNIQUE,
+  `SENHA` varchar(8) COLLATE utf8mb3_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 COMMIT;
 
