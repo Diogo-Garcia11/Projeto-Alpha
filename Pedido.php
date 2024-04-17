@@ -32,7 +32,6 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 else{
 ?>
     <form action="Pedido.php?valor=enviado"  method="post">
-    
     <input type="submit"  name="Enviar" value="Valor da Compra">
     </form>
 </body>

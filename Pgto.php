@@ -12,29 +12,33 @@ session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
 
-    $Botao = $_POST['Enviar'];
+    if (isset($_POST['Opcao'])) 
+    {
+        $Botao = $_POST['Enviar'];
+        $_SESSION['FormaPgto'] = $_POST['Opcao'];
+        $_SESSION['CondicaoPgto'] = $_POST['Parcelamento'];
+        
+    }
     
-    $_SESSION['FormaPgto'] = $_POST['Opcao'];
-    $_SESSION['CondicaoPgto'] = $_POST['Parcelamento'];
+    else 
+    {
+        echo "Selecione a forma de pagamento" . "<br>";
+        echo "<a href='Pgto.php'>Voltar</a>";
+        exit();
+    }
+
+    if(isset($_POST['Parcelamento']))
+    {
+        $Parcelamento = $_POST['Parcelamento'];
+        $ValorParcela = $_SESSION['Valor'] / $Parcelamento;
+        $_SESSION['ValorParcela'] = $ValorParcela;
+    }
+        
     
 
     if($Botao == "Confirmar Pagamento")
     {
         header('location:Pedido.php');
-    }
-
-    if (isset($_POST['Parcelamento'])) 
-    {
-        $Parcelamento = $_POST['Parcelamento'];
-        $ValorParcela = $_SESSION['Valor'] / $Parcelamento;
-        $_SESSION['ValorParcela'] = $ValorParcela;
-
-        echo $Parcelamento . "<br>";
-        echo $ValorParcela. "<br>";
-    }
-    else
-    {
-        echo "Selecione a quantidade de parcelas";
     }
     
 }
@@ -59,7 +63,6 @@ else{
         <option value="12">12X</option>
     </select><br>
 
-    
     <label for="">Valor de Cada parcela:</label><br>
     <div id="ValorParcela">
         
@@ -67,7 +70,6 @@ else{
 
     <label for="">Valor do Produto:</label><br>
     <?php
-    
     echo $_SESSION['Valor'];
     ?><br>
     
@@ -89,7 +91,20 @@ else{
             }
         }
     );
-    
+
+    document.getElementById('Cartao').addEventListener('change', function() 
+            {
+                if(this.checked) 
+                {
+                    document.getElementById('Parcelamento').style.display = '';
+                    document.getElementById('Parcelamento').value = '1';
+                    var Valor = <?php echo $_SESSION['Valor']; ?>;
+                    var ValorParcela = Valor / document.getElementById('Parcelamento').value;
+                    document.getElementById('ValorParcela').textContent = ValorParcela;
+                }
+            }
+        );
+        
     $(document).ready(function(){
         $("#Parcelamento").change(function(){
             var Parcelamento = $(this).val();
@@ -98,16 +113,6 @@ else{
             $("#ValorParcela").text(ValorParcela); // mostra o valor de cada parcela parcela
         });
     });
-
-
-        document.getElementById('Cartao').addEventListener('change', function() 
-                {
-                    if(this.checked) 
-                    {
-                        document.getElementById('Parcelamento').style.display = '';
-                    }
-                }
-            );
     </script>
 </body>
 </html>
