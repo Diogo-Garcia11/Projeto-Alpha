@@ -12,7 +12,7 @@ session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
     
-    $_SESSION['Valor'] = $_POST['Valor'];
+    
 
     if (isset($_POST['Opcao'])) 
     {
@@ -47,8 +47,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 else{
 ?>
     <form action="Pgto.php?valor=enviado"  method="post">
-        Valor: <br>
-    <input type="text" name="Valor" id="Valor" placeholder="Valor"required><br>
+    
     <label for="Opcao">Selecione a opção de pagamento</label><br>
     <input type="radio" name="Opcao" id="Pix" value="Pix">Pix<br>
     <input type="radio" name="Opcao" id="Cartao"value="Pix">Cartão<br>
@@ -74,6 +73,7 @@ else{
 
     <label for="">Valor do Produto:</label><br>
     <?php
+    $_SESSION['Valor'] = number_format($_SESSION['Valor'], 2,',','.');
     echo $_SESSION['Valor'];
     ?><br>
     
