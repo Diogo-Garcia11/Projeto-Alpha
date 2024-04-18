@@ -18,7 +18,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
         
         $_SESSION["control"] = "logado";
-        include "Logado.php";
+        include "conexao.php";
         
     try
     {
