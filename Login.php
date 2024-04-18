@@ -22,9 +22,8 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         
     try
     {
-        $Comando=$conexao->prepare("INSERT INTO TB_CADASTRO (USUARIO, SENHA)
-            VALUES (?,?)");
-
+        $Comando=$conexao->prepare("INSERT INTO TB_CADASTRO (USUARIO, SENHA)VALUES (?,?)");
+        
                 $Comando->bindParam(1, $Usuario);
                 $Comando->bindParam(2, $Senha);
                 
