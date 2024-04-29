@@ -73,7 +73,7 @@ else
 
     <input type="submit" value="Logar" name="Botao">
     <input type="submit" value="Cadastro" name="Botao">
-    <input type="reset" value="Limparrr" name="Botao">
+    <input type="reset" value="Limpar" name="Botao">
     </form>
 
 </body>
