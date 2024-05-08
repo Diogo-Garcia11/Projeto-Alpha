@@ -43,9 +43,6 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                 {
                     echo"<script> alert('Pedido registrado com sucesso!')</script>";
                     echo ('<meta http equiv="refresh"content=0;""Pedido.php">');
-                    
-            
-
                 }
                 else
                 {

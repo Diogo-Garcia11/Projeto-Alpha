@@ -17,12 +17,12 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     if ($Botao == "Login")
     {
         
-        $_SESSION["control"] = "logado";
+        
         include "conexao.php";
         
     try
     {
-        $Comando=$conexao->prepare("SELECT * FROM tb_cliente(email_cliente, senha_cliente)VALUES (?,?)");
+        $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
         
                 $Comando->bindParam(1, $Usuario);
                 $Comando->bindParam(2, $Senha);
@@ -31,11 +31,19 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         {
             if ($Comando->rowCount() >0)
             {
-                echo"<script> alert('logado com sucesso!')</script>";
-                echo ('<meta http equiv="refresh"content=0;""Login.php">');
-                
-                $Email = null;
-                $Senha = null;
+                while ($Linha = $Comando->fetch(PDO::FETCH_OBJ)) 
+                {
+                    
+
+                    $email = $Linha->email_cliente;
+                    $_SESSION['email'] = $email;
+
+                    $senha = $Linha->senha_cliente;
+                    $_SESSION['senha'] = $senha;
+                    $_SESSION["control"] = "logado";
+                    
+                    header('location:Cadastro.php');
+                }
                 
             }
             else
