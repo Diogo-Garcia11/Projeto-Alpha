@@ -9,7 +9,7 @@
     <?php
     if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
-            session_start();
+        session_start();
         include "conexao.php";
         if ($_SESSION['controleResp'] == 'localizado')
         {
@@ -36,40 +36,39 @@
         }
 
         //Carrega a tabela
-        $Matriz=$conexao->prepare("select * FROM TB_FALECONOSCO");
+        $Matriz=$conexao->prepare("SELECT * FROM tb_pedido");
 
-        echo "Contatos realizados no site:<br><br>"; 
+        echo "Pedidos do site:<br><br>"; 
         $Matriz->execute();
 
         echo "<table border=1>";
         echo "<tr>";
-        echo "<td> Id Contato </td>";
-        echo "<td> Nome do Contato</td>";
-        echo "<td> Fone do Contato</td>";
-        echo "<td> Email do Contato</td>";
-        echo "<td> Assunto do Contato</td>";
-        echo "<td> Msg do Contato</td>";
-        echo "<td> Resposta do Contato</td>";
+        echo "<td> Id Pedido </td>";
+        echo "<td> Data/Hora Do Pedido</td>";
+        echo "<td> Valor do Pedido</td>";
+        echo "<td> Status do Pedido</td>";
+        echo "<td> Id do Cliente</td>";
+        echo "<td> Id do Produto</td>";
+        
         echo "</tr>";
 
         while ($Linha = $Matriz -> fetch(PDO:: FETCH_OBJ))
         {
-            $idContato = $Linha -> ID_CONTATO;
-            $nomeContato = $Linha -> NOME_CONTATO;
-            $foneContato = $Linha -> FONE_CONTATO;
-            $emailContato = $Linha -> EMAIL_CONTATO;
-            $assuntoContato = $Linha -> ASSUNTO_CONTATO;
-            $msgContato = $Linha -> MSG_CONTATO;
-            $respContato = $Linha -> RESP_CONTATO;
+            $idPedido = $Linha -> id_pedido;
+            $dataPedido = $Linha -> dta_pedido;
+            $valorPedido = $Linha -> valor_pedido;
+            $statusPedido = $Linha -> status_pedido;
+            $idCliente = $Linha -> id_cliente;
+            $id_cliente = $Linha -> id_produto;
+            
 
             echo "<tr>";
-            echo "<td>" . $idContato. "</td>";
-            echo "<td>" . $nomeContato. "</td>";
-            echo "<td>" . $foneContato. "</td>";
-            echo "<td>" . $emailContato. "</td>";
-            echo "<td>" . $assuntoContato. "</td>";
-            echo "<td>" . $msgContato. "</td>";
-            echo "<td>" . $respContato. "</td>";
+            echo "<td>" . $idPedido. "</td>";
+            echo "<td>" . $dataPedido. "</td>";
+            echo "<td>" . $valorPedido. "</td>";
+            echo "<td>" . $statusPedido. "</td>";
+            echo "<td>" . $idCliente. "</td>";
+            echo "<td>" . $id_cliente. "</td>";
             echo "</tr>";
         }
         echo "</table>";
@@ -98,6 +97,7 @@
     {
     ?>
     <form action="Pedido.php?valor=enviado" method="post">
+    
     <input class="button" type="submit" value="Alterar">
 
     </form>

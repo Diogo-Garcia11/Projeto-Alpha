@@ -22,7 +22,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         
     try
     {
-        $Comando=$conexao->prepare("INSERT INTO TB_CADASTRO (USUARIO, SENHA)VALUES (?,?)");
+        $Comando=$conexao->prepare("SELECT * FROM tb_cliente(email_cliente, senha_cliente)VALUES (?,?)");
         
                 $Comando->bindParam(1, $Usuario);
                 $Comando->bindParam(2, $Senha);
@@ -31,18 +31,16 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         {
             if ($Comando->rowCount() >0)
             {
-                echo"<script> alert('Contato registrado com sucesso!')</script>";
+                echo"<script> alert('logado com sucesso!')</script>";
                 echo ('<meta http equiv="refresh"content=0;""Login.php">');
                 
                 $Email = null;
                 $Senha = null;
                 
-                
-
             }
             else
             {
-                    echo "Erro ao tentar efetivar o contato.";
+                    echo "Erro ao tentar logar.";
             }
         }
         else
@@ -58,8 +56,13 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     if ($Botao == "Cadastro")
     {
         
-        $_SESSION["control"] = "new";
+        
         header('location:Cadastro.php');
+    }
+    if($Botao == "Esqueceu a senha")
+    {
+        echo"<script> var email = prompt(\"digite seu email\")</script>";
+        $_SESSION['email'];
     }
 }
 else
@@ -73,6 +76,7 @@ else
 
     <input type="submit" value="Logar" name="Botao">
     <input type="submit" value="Cadastro" name="Botao">
+    <input type="submit" value="Esqueceu a senha" name="Botao">
     <input type="reset" value="Limpar" name="Botao">
     </form>
 
