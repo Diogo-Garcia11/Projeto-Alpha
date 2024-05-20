@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 08/05/2024 às 01:33
+-- Tempo de geração: 08/05/2024 às 02:03
 -- Versão do servidor: 8.2.0
 -- Versão do PHP: 8.2.13
 
@@ -48,8 +48,10 @@ DROP TABLE IF EXISTS `tb_pedido`;
 CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `id_pedido` int NOT NULL AUTO_INCREMENT,
   `dta_pedido` datetime NOT NULL,
+  `formapgto_pedido` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `condicaopgto_pedido` int NOT NULL,
+  `valorparcela_pedido` decimal(7,2) NOT NULL,
   `valor_pedido` decimal(7,2) NOT NULL,
-  `status_pedido` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_cliente` int NOT NULL,
   `id_produto` int NOT NULL,
   PRIMARY KEY (`id_pedido`),
@@ -71,17 +73,6 @@ CREATE TABLE IF NOT EXISTS `tb_produto` (
   `des_prod` text COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id_produto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Restrições para tabelas despejadas
---
-
---
--- Restrições para tabelas `tb_pedido`
---
-ALTER TABLE `tb_pedido`
-  ADD CONSTRAINT `tb_pedido_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `tb_cliente` (`id_cliente`),
-  ADD CONSTRAINT `tb_pedido_ibfk_2` FOREIGN KEY (`id_produto`) REFERENCES `tb_produto` (`id_produto`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
