@@ -7,15 +7,36 @@
 </head>
 <body>
     <?php
+    session_start();
     if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
-        $_SESSION['Valor'] = $_POST['Valor'];
-        $_SESSION['Descricao']= $_POST['Descricao'];
-        $Botao = $_POST['Enviar'];
-
-        if($Botao == "Comprar")
+        if(isset($_POST['id_produto'])) 
         {
-            header('location:Login.php');
+
+            include "conexao.php";
+        
+            $id_produto = $_POST['id_produto'];
+        
+            $query = $conexao->prepare("SELECT nome_prod, valor_prod, des_prod FROM tb_produto WHERE id_produto = ?");
+            $query->bindParam(1, $id_produto);
+            $query->execute();
+        
+            if($query->rowCount() > 0) {
+                $produto = $query->fetch(PDO::FETCH_ASSOC);
+
+                $_SESSION['produto_selecionado'] = $produto;
+                
+                echo "<h1>{$produto['nome_prod']}</h1>";
+                echo "<p>Valor: R$ {$produto['valor_prod']}</p>";
+                echo "<p>Descrição: {$produto['des_prod']}</p>";
+                echo "<form action='Login.php' method='post'>";
+                echo "<input type='submit' name='Enviar' value='Comprar'>";
+                echo "</form>";
+            } else {
+                echo "<p>Produto não encontrado.</p>";
+            }
+        } else {
+            echo "<p>Nenhum produto selecionado.</p>";
         }
     }
 
@@ -23,9 +44,6 @@
     else{
     ?>
     <form action="Produto.php?valor=enviado" method="post">
-    Valor: <br>
-    <input type="text" name="Valor" id="Valor" placeholder="Valor"required><br>
-    <input type="text" name="Descricao" id="Descricao" placeholder="Descrição"required><br>
     <input type="submit" name="Enviar" value="Comprar">
     </form>
 </body>

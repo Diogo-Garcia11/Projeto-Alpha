@@ -18,9 +18,9 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     echo "Forma de Pagamento: ".$_SESSION['FormaPgto']."<br>";
     echo "Condição de pagamento(Quantidade de Parcelas): ".$_SESSION['CondicaoPgto']."<br>";
     echo "Valor da Parcela: ".$_SESSION['ValorParcela']."<br>";
-    echo "Valor do pedido: ".$_SESSION['Valor']."<br>";
+    echo "Valor do pedido: ".$_SESSION['produto_selecionado']['valor_prod'] * $_SESSION['CondicaoPgto']."<br>";
     
-    if ($Botao == "Gerenciar")
+    if ($Botão == "Gerenciar")
     {
         
         include "conexao.php";
@@ -35,7 +35,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                     $Comando->bindParam(2, $_SESSION['FormaPgto']);
                     $Comando->bindParam(3, $_SESSION['CondicaoPgto']);
                     $Comando->bindParam(4, $_SESSION['ValorParcela']);
-                    $Comando->bindParam(5, $_SESSION['Valor']);
+                    $Comando->bindParam(5, $_SESSION['produto_selecionado']['valor_prod']);
                     
             if ($Comando->execute())
             {
