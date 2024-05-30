@@ -11,8 +11,8 @@
 ?>
     <form action="Produto.php" method="post">
 
-    <input type="submit" value="Produto 1" name="Prod 1: R$ 10,00">
-    <input type="submit" value="Produto 2" name="Prod 2: R$ 15,00">
+    <input type="button" value="Produto 1" name="10,00"> <br>
+    <input type="button" value="Produto 2" name="20,00">
     </form>
     
 </body>
