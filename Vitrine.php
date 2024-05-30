@@ -9,10 +9,10 @@
 <?php
 
 ?>
-    <form action="Vitrine.php?valor=enviado" method="post">
+    <form action="Produto.php" method="post">
 
-    <input type="submit" value="Produto 1" name="Botao1">
-    <input type="submit" value="Produto 2" name="Botao2">
+    <input type="submit" value="Produto 1" name="Prod 1: R$ 10,00">
+    <input type="submit" value="Produto 2" name="Prod 2: R$ 15,00">
     </form>
     
 </body>
