@@ -9,10 +9,10 @@
 <?php
 
 ?>
-    <form action="Produto.php" method="post">
+    <form action="Produto.php" method="get">
 
-    <input type="button" value="Produto 1" name="10,00"> <br>
-    <input type="button" value="Produto 2" name="20,00">
+    <button type="submit" name="preco1" value="10.00">Produto 1</button> <br>
+    <button type="submit" name="preco2" value="20.00">Produto 2</button>
     </form>
     
 </body>
