@@ -30,13 +30,13 @@
         if(isset($_GET['preco1']))
         {
             $preco1 = $_GET['preco1'];
-            echo "O preço do Produto é: R$".$preco1
+            echo "O preço do Produto é: R$" .$preco1;
         }
 
         else(isset($_GET['preco2']))
         {
             $preco2 = $_GET['preco2'];
-            echo "O preço do Produto é: R$".$preco2
+            echo "O preço do Produto é: R$" .$preco2;
         }
     }
     
