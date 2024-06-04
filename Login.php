@@ -14,57 +14,55 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     $Usuario = $_POST ["Usuario"];
     $Senha = $_POST ["Senha"];
     
-    if ($Botao == "Login")
+    if ($Botao == "Logar")
     {
-        
-        
+
         include "conexao.php";
         
-    try
-    {
-        $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
-        
-                $Comando->bindParam(1, $Usuario);
-                $Comando->bindParam(2, $Senha);
-                
-        if ($Comando->execute())
+        try
         {
-            if ($Comando->rowCount() >0)
+            $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+            
+                    $Comando->bindParam(1, $Usuario);
+                    $Comando->bindParam(2, $Senha);
+                    
+            if ($Comando->execute())
             {
-                while ($Linha = $Comando->fetch(PDO::FETCH_OBJ)) 
+                if ($Comando->rowCount() >0)
                 {
-                    
+                    while ($Linha = $Comando->fetch(PDO::FETCH_OBJ)) 
+                    {
+                        
 
-                    $email = $Linha->email_cliente;
-                    $_SESSION['email'] = $email;
+                        $email = $Linha->email_cliente;
+                        $_SESSION['email'] = $email;
 
-                    $senha = $Linha->senha_cliente;
-                    $_SESSION['senha'] = $senha;
-                    $_SESSION["control"] = "logado";
+                        $senha = $Linha->senha_cliente;
+                        $_SESSION['senha'] = $senha;
+                        $_SESSION["control"] = "logado";
+                        
+                        header('location:Cadastro.php');
+                    }
                     
-                    header('location:Cadastro.php');
                 }
-                
+                else
+                {
+                        echo "Erro ao tentar logar.";
+                }
             }
             else
             {
-                    echo "Erro ao tentar logar.";
+                throw new PDOException("Erro: Não foi possível executar a declaração sql.");
             }
         }
-        else
+        catch (PDOException $erro)
         {
-            throw new PDOException("Erro: Não foi possível executar a declaração sql.");
+            echo"Erro" . $erro->getMessage();
         }
-    }
-    catch (PDOException $erro)
-    {
-        echo"Erro" . $erro->getMessage();
-    }
     }
     if ($Botao == "Cadastro")
     {
-        
-        
+        $_SESSION["control"] = "!logado";
         header('location:Cadastro.php');
     }
     if($Botao == "Esqueceu a senha")

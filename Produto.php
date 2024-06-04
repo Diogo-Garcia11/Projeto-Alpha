@@ -22,7 +22,7 @@
             $query->execute();
         
             if($query->rowCount() > 0) {
-                $produto = $query->fetch(PDO::FETCH_ASSOC);
+                $produto = $query->fetch(PDO::FETCH_OBJ);
 
                 $_SESSION['produto_selecionado'] = $produto;
                 
@@ -38,6 +38,8 @@
         } else {
             echo "<p>Nenhum produto selecionado.</p>";
         }
+
+        
     }
 
 

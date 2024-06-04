@@ -10,13 +10,14 @@
 session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
+    include "conexao.php";
     $Botão = $_POST['Enviar'];
     $Nome = $_POST['Nome'];
     $Endereco = $_POST['Endereco'];
     $Email = $_POST['Email'];
     $Senha = $_POST['Senha'];
     $ConfSenha = $_POST['ConfSenha'];
-
+    
     if($_SESSION["control"] == "logado")
     {
         $Comando=$conexao->prepare("UPDATE nome_cliente, endereco_cliente, email_cliente, senha_cliente SET nome_cliente = ?, endereco_cliente = ?, email_cliente = ?, senha_cliente =? FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
@@ -44,13 +45,13 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     }
     else{
 
-    if($Botão == "Confirmar Dados")
-    {
-        header('location:Pgto.php');
-        
-    }
+        if($Botão == "Confirmar Dados")
+        {
+            header('location:Pgto.php');
+            
+        }
     
-}
+    }
 }
 else{
 ?>

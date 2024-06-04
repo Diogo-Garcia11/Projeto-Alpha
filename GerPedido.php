@@ -7,34 +7,12 @@
 </head>
 <body>
     <?php
+    session_start();
+    
     if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
-        session_start();
         include "conexao.php";
-        if ($_SESSION['controleResp'] == 'localizado')
-        {
-            echo "Dados do Contato:<br><br>";
-            echo "Nome: <BR>" .  $_SESSION['nomeContato']. '<br>'. '<br>';
-            echo "Fone:<BR>" . $_SESSION['foneContato']. '<br>' .'<br>';
-            echo "Email:<BR>" .  $_SESSION['emailContato'] . '<br>'. '<br>';
-            echo "Assunto: <BR>" .  $_SESSION['assuntoContato'].'<br>'. '<br>';
-            echo "Mensagem: <BR>" .  $_SESSION['msgContato'] . '<br>'. '<br>';
-            echo "Resposta: <BR>" . $_SESSION['respContato'] . '<br>'. '<br>';
-            echo "Cadastro localizado com sucesso:". '<br>' .'<br>';
-        }
-
-
-        else if ($_SESSION['controleResp'] == 'respondido')
-        {
-            echo "Resposta gravada com sucesso:<br><br>";
-        }
-
-
-        else if ($_SESSION['controleResp'] == 'enviado')
-        {
-            echo "Resposta enviada com sucesso:<br><br>";
-        }
-
+        $Botao = $_POST['Botao'];
         //Carrega a tabela
         $Matriz=$conexao->prepare("SELECT * FROM tb_pedido");
 
@@ -73,32 +51,33 @@
         }
         echo "</table>";
 
-        if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado')){
-            if($_POST['id_contato']!= "") $_SESSION['idContato'] = $_POST['id_contato'];
-            if($_POST['resp_contato'] !="") $_SESSION['respContato'] = $_POST['resp_contato'];
-            $Botao = $_POST ['Botao'];
+        if($Botao = "Alterar")
+        {
+            $Nome = $_POST['Nome'];
+            $Endereco = $_POST['Endereco'];
+            $Comando = $conexao->prepare("UPDATE nome_cliente, endereco_cliente set nome_cliente=?, endereco_cliente=? FROM tb_cliente WHERE id_cliente =?");
 
-            if($Botao == "Alterar")
-            {
-                include "alterarcontato.php";
-            }
-            if($Botao == "Enviar")
-            {
-                include "respondercontato.php";
-            }
-            if($Botao == "Localizar")
-            {
-                include "localizarcontato.php";
-            }
+            $Comando->bindParam(1, $Nome);
+            $Comando->bindParam(2, $Endereco);
+            $Comando->bindParam(3, $idCliente);
+        }
+        if($Botao = "Voltar")
+        {
+            header('location:Vitrine.php');
         }
     }
 
+        
     else
     {
     ?>
-    <form action="Pedido.php?valor=enviado" method="post">
-    
-    <input class="button" type="submit" value="Alterar">
+    <form action="GerPedido.php?valor=enviado" method="post">
+    <label for="Nome">Nome:</label>
+    <input type="text" name="Nome">
+    <label for="Endereco">Endereço:</label>
+    <input type="text" name="Endereco">
+    <input name="Botao" type="submit" value="Alterar">
+    <input name="Botao" type="button" value="Voltar">
 
     </form>
 </body>
