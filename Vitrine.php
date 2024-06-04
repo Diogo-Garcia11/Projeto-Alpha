@@ -11,8 +11,8 @@
 ?>
     <form action="Produto.php" method="get">
 
-    <button type="submit" name="preco1" value="10.00">Produto 1</button> <br>
-    <button type="submit" name="preco2" value="20.00">Produto 2</button>
+    <button type="submit" name="preco1" value="enviar">Produto 1</button> <br>
+    <button type="submit" name="preco2" value="enviar">Produto 2</button>
     </form>
     
 </body>
