@@ -35,7 +35,9 @@
             } else {
                 echo "<p>Produto não encontrado.</p>";
             }
-        } else {
+        } 
+        else 
+        {
             echo "<p>Nenhum produto selecionado.</p>";
         }
 

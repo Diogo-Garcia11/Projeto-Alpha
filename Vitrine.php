@@ -7,71 +7,54 @@
 </head>
 <body>
 <?php
-if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
+if(1==1)
 {
 
-    $Botao = $_POST ["id_produto"];
-
-    if ($Botao == 1)
-    {
-        header('location:Produto.php?id_produto=1');
-    }
-    else if ($Botao == 2)
-    {
-        header('location:Produto.php?id_produto=2');
-    }
+    include "conexao.php";
 
     $Matriz=$conexao->prepare("SELECT * FROM tb_produto");
 
-        echo "Pedidos do site:<br><br>"; 
+       
         $Matriz->execute();
-
-        echo "<table border=1>";
-        echo "<tr>";
-        echo "<td> Id Pedido </td>";
-        echo "<td> Data/Hora Do Pedido</td>";
-        echo "<td> Valor do Pedido</td>";
-        echo "<td> Status do Pedido</td>";
-        echo "<td> Id do Cliente</td>";
-        echo "<td> Id do Produto</td>";
-        
-        echo "</tr>";
-
+        echo"<h1>Selecione o produto desejado:</h1>";
         while ($Linha = $Matriz -> fetch(PDO:: FETCH_OBJ))
         {
-            $idPedido = $Linha -> id_pedido;
-            $dataPedido = $Linha -> dta_pedido;
-            $valorPedido = $Linha -> valor_pedido;
-            $statusPedido = $Linha -> status_pedido;
-            $idCliente = $Linha -> id_cliente;
-            $id_cliente = $Linha -> id_produto;
+            $idProduto = $Linha -> id_produto;
+            $nomeProd = $Linha -> nome_prod;
+            $valorProd = $Linha -> valor_prod;
+            $desProd = $Linha -> des_prod;
             
-
+            echo "<table border=1>";
             echo "<tr>";
-            echo "<td>" . $idPedido. "</td>";
-            echo "<td>" . $dataPedido. "</td>";
-            echo "<td>" . $valorPedido. "</td>";
-            echo "<td>" . $statusPedido. "</td>";
-            echo "<td>" . $idCliente. "</td>";
-            echo "<td>" . $id_cliente. "</td>";
+            echo "<td> Id do produto </td>";
+            echo "<td> Nome do produto </td>";
+            echo "<td> Valor do produto </td>";
+            echo "<td> Descrição do produto </td>";
             echo "</tr>";
-// id_produto
-// nome_prod
-// valor_prod
-// des_prod
+            echo "<tr>";
+            echo "<td>" . $idProduto. "</td>";
+            echo "<td>" . $nomeProd. "</td>";
+            echo "<td>" . $valorProd. "</td>";
+            echo "<td>" . $desProd. "</td>";
+            echo "</tr>";
+            echo "</table> <br>" ;
+            ?>
+            <form action="Vitrine.php?valor=enviado" method="post">
+            <input type="submit" name="Botao" value="Comprar">
+            </form>
+            <br>
+            <?php
+            
+            if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
+            { 
+                $_SESSION['idProd'] = $idProduto;
+                header('location:Produto.php'); 
+            }
         }
-        echo "</table>";
+        
 }
 else{
 ?>
-    <form action="Produto.php?valor=enviado" method="post">
-    <div style="text-align: center;">
-    <h1>Selecione o produto desejado:</h1>
-    <button type="submit" name="id_produto" value="1" style="background-image: url('imagens/cameracanon.jpg'); background-size: cover; width: 200px; height: 150px;"></button>
-    <button type="submit" name="id_produto" value="2" style="background-image: url('imagens/kindle.jpg'); background-size: cover; width: 200px; height: 150px;"></button>
-    </div>
-    </form>
-
 </body>
 </html>
 <?php
