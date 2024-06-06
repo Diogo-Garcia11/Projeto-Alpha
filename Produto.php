@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-    session_start();
+<?php
+session_start();
     if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
         if(isset($_POST['id_produto'])) 
@@ -15,7 +15,7 @@
 
             include "conexao.php";
         
-            $id_produto = $_POST['id_produto'];
+            $id_produto = $_POST['idProd'];
         
             $query = $conexao->prepare("SELECT nome_prod, valor_prod, des_prod FROM tb_produto WHERE id_produto = ?");
             $query->bindParam(1, $id_produto);

@@ -59,7 +59,7 @@
 
             $Comando->bindParam(1, $Nome);
             $Comando->bindParam(2, $Endereco);
-            $Comando->bindParam(3, $idCliente);
+            $Comando->bindParam(3, $_SESSION['idCliente']);
         }
         if($Botao = "Voltar")
         {

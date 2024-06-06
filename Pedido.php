@@ -24,15 +24,11 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 
         try
         {
-            $Comando2=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE nome_cliente =? and endereco_cliente =?");
-            $Comando2->bindParam(1 ,$_SESSION['Nome']);
-            $Comando2->bindParam(2 ,$_SESSION['Endereco']);
+            $Comando2=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE  email_cliente =? and senha_cliente =?");
+            $Comando2->bindParam(1 ,$_SESSION['email']);
+            $Comando2->bindParam(2 ,$_SESSION['senha']);
             $idcliente=$Comando2->fetch(PDO::FETCH_OBJ);
-
-            $Comando3=$conexao->prepare("SELECT id_produto FROM tb_produto WHERE nome_prod=?");
-            $Comando3->bindParam(1 ,$_SESSION['produto_selecionado']['nome_prod']);
-            $idprod=$Comando3->fetch(PDO::FETCH_OBJ);
-            
+            $_SESSION["idCliente"] = $idcliente;
             date_default_timezone_set('America/Sao_Paulo');
             $DateTimedeagora = date('Y-m-d H:i:s');
             $Comando=$conexao->prepare("INSERT INTO tb_pedido (dta_pedido, formapgto_pedido, condicaopgto_pedido, valorparcela_pedido, valor_pedido,id_cliente,id_produto)VALUES (?,?,?,?,?,?,?)");
@@ -43,7 +39,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                     $Comando->bindParam(5, $_SESSION['produto_selecionado']['valor_prod']);
                    
                     $Comando->bindParam(6, $idcliente);
-                    $Comando->bindParam(7, $idprod);
+                    $Comando->bindParam(7, $_SESSION["idProd"]);
                     
             if ($Comando->execute())
             {

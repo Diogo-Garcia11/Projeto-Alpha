@@ -80,10 +80,10 @@ else
     Senha: <br>
     <input type="password" name="Senha" placeholder="Senha" maxlenght="8" required><br>
 
-    <input type="submit" value="Logar" name="Botao">
-    <input type="submit" value="Cadastro" name="Botao">
-    <input type="submit" value="Esqueceu a senha" name="Botao">
-    <input type="reset" value="Limpar" name="Botao">
+    <input type="submit" value="Logar" name="Botao"><br>
+    <input type="submit" value="Cadastro" name="Botao"><br>
+    <input type="submit" value="Esqueceu a senha" name="Botao"><br>
+    <input type="reset" value="Limpar" name="Botao"><br>
     </form>
 
 </body>
