@@ -13,6 +13,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     $Botao = $_POST ["Botao"];
     $Usuario = $_POST ["Usuario"];
     $Senha = $_POST ["Senha"];
+    $Email= $_POST['Email'];
     
     if ($Botao == "Logar")
     {
@@ -38,6 +39,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                         $_SESSION['email'] = $email;
 
                         $senha = $Linha->senha_cliente;
+                        $_SESSION['senha'] = $senha;
                         $_SESSION['senha'] = $senha;
                         $_SESSION["control"] = "logado";
                         
@@ -67,8 +69,16 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     }
     if($Botao == "Esqueceu a senha")
     {
-        echo"<script> var email = prompt(\"digite seu email\")</script>";
-        $_SESSION['email'];
+        $novasenha= "alpha";
+        $Comando=$conexao->prepare("UPDATE senha_cliente SET senha_cliente =$novasenha FROM tb_cliente WHERE email_cliente =?");
+        $Comando->bindParam(1, $Email);
+        $Comando->execute();
+        include "respondercontato.php";
+    }
+    if($Botao == "Enviar")
+    {
+        $_SESSION['emailContato'] = $_POST['Email'];  
+        include "respondercontato.php";
     }
 }
 else
@@ -76,14 +86,18 @@ else
     ?>
     <form action="Login.php?valor=enviado" method="post">
     Usuário: <br>
-    <input type="email" placeholder="Email" name="Usuario"><br>
+    <input type="email" placeholder="Usuario" name="Usuario"><br>
     Senha: <br>
-    <input type="password" name="Senha" placeholder="Senha" maxlenght="8" required><br>
+    <input type="password" name="Senha" placeholder="Senha" maxlenght="8" required><br><br>
 
     <input type="submit" value="Logar" name="Botao"><br>
     <input type="submit" value="Cadastro" name="Botao"><br>
     <input type="submit" value="Esqueceu a senha" name="Botao"><br>
-    <input type="reset" value="Limpar" name="Botao"><br>
+    <input type="reset" value="Limpar" name="Botao"><br><br>
+    
+    <p>Caso esqueceu a senha, insira um email que você tenha acesso:</p>
+    <input type="email" placeholder="Email" name="Email"><br>
+    <input type="submit" value="Enviar" name="Botao">
     </form>
 
 </body>
