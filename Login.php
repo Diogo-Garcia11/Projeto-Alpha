@@ -101,8 +101,8 @@ else
     <input type="submit" value="Enviar" name="Botao"><br>
     </div>
     
-    </form>
-    <input type="button" value="Esqueceu a senha" id="EsqueceuBotao" name="Botao"><br>
+    </form><br>
+    <input type="button" value="Esqueci a senha" id="EsqueceuBotao" name="Botao"><br>
 
     <script>
         document.getElementById('Esqueceu').style.display = 'none'
@@ -110,14 +110,18 @@ else
         document.getElementById('EsqueceuBotao').addEventListener('click', function() 
         {
             if(this.click) 
-            {
-                document.getElementById('Esqueceu').style.display = ''
-            
-            }
-            else if(document.getElementById('Esqueceu').style.display == '')
-            {
+            {   if(document.getElementById('Esqueceu').style.display == 'none')
+                {
+                    document.getElementById('Esqueceu').style.display = ''
+                    this.value = "Não esqueci a senha"
+                }
+                else{
                 document.getElementById('Esqueceu').style.display = 'none'
+                this.value = "Esqueci a senha"
+                
+                }
             }
+             
         }
     );
         </script>
