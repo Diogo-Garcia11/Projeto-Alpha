@@ -14,47 +14,50 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     $Usuario = $_POST ["Usuario"];
     $Senha = $_POST ["Senha"];
     $Email= $_POST['Email'];
-    
+    include "conexao.php";
     if ($Botao == "Logar")
     {
 
-        include "conexao.php";
+        
         
         try
         {
-            $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
-            
-                    $Comando->bindParam(1, $Usuario);
-                    $Comando->bindParam(2, $Senha);
-                    
-            if ($Comando->execute())
+            if($Botao == "Logar")
             {
-                if ($Comando->rowCount() >0)
+                $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+                
+                $Comando->bindParam(1, $Usuario);
+                $Comando->bindParam(2, $Senha);
+                        
+                if ($Comando->execute())
                 {
-                    while ($Linha = $Comando->fetch(PDO::FETCH_OBJ)) 
+                    if ($Comando->rowCount() >0)
                     {
-                        
+                        while ($Linha = $Comando->fetch(PDO::FETCH_OBJ)) 
+                        {
+                            
 
-                        $email = $Linha->email_cliente;
-                        $_SESSION['email'] = $email;
+                            $email = $Linha->email_cliente;
+                            $_SESSION['email'] = $email;
 
-                        $senha = $Linha->senha_cliente;
-                        $_SESSION['senha'] = $senha;
-                        $_SESSION['senha'] = $senha;
-                        $_SESSION["control"] = "logado";
+                            $senha = $Linha->senha_cliente;
+                            $_SESSION['senha'] = $senha;
+                            $_SESSION['senha'] = $senha;
+                            $_SESSION["control"] = "logado";
+                            
+                            header('location:Cadastro.php');
+                        }
                         
-                        header('location:Cadastro.php');
                     }
-                    
+                    else
+                    {
+                            echo "Erro ao tentar logar.";
+                    }
                 }
-                else
-                {
-                        echo "Erro ao tentar logar.";
-                }
-            }
             else
             {
                 throw new PDOException("Erro: Não foi possível executar a declaração sql.");
+            }
             }
         }
         catch (PDOException $erro)
@@ -67,16 +70,14 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         $_SESSION["control"] = "!logado";
         header('location:Cadastro.php');
     }
-    if($Botao == "Esqueceu a senha")
-    {
-        $novasenha= "alpha";
-        $Comando=$conexao->prepare("UPDATE senha_cliente SET senha_cliente =$novasenha FROM tb_cliente WHERE email_cliente =?");
-        $Comando->bindParam(1, $Email);
-        $Comando->execute();
-        include "respondercontato.php";
-    }
     if($Botao == "Enviar")
     {
+        $novasenha= "alpha";
+        
+        $Comando2=$conexao->prepare("UPDATE senha_cliente SET senha_cliente = ? FROM tb_cliente WHERE email_cliente =?");
+        $Comando2->bindParam(1, $novasenha);
+        $Comando2->bindParam(2, $Email);
+
         $_SESSION['emailContato'] = $_POST['Email'];  
         include "respondercontato.php";
     }
@@ -88,17 +89,38 @@ else
     Usuário: <br>
     <input type="email" placeholder="Usuario" name="Usuario"><br>
     Senha: <br>
-    <input type="password" name="Senha" placeholder="Senha" maxlenght="8" required><br><br>
+    <input type="password" name="Senha" placeholder="Senha" maxlenght="8" ><br><br>
 
     <input type="submit" value="Logar" name="Botao"><br>
     <input type="submit" value="Cadastro" name="Botao"><br>
-    <input type="submit" value="Esqueceu a senha" name="Botao"><br>
     <input type="reset" value="Limpar" name="Botao"><br><br>
-    
+
+    <div id="Esqueceu">
     <p>Caso esqueceu a senha, insira um email que você tenha acesso:</p>
     <input type="email" placeholder="Email" name="Email"><br>
-    <input type="submit" value="Enviar" name="Botao">
+    <input type="submit" value="Enviar" name="Botao"><br>
+    </div>
+    
     </form>
+    <input type="button" value="Esqueceu a senha" id="EsqueceuBotao" name="Botao"><br>
+
+    <script>
+        document.getElementById('Esqueceu').style.display = 'none'
+
+        document.getElementById('EsqueceuBotao').addEventListener('click', function() 
+        {
+            if(this.click) 
+            {
+                document.getElementById('Esqueceu').style.display = ''
+            
+            }
+            else if(document.getElementById('Esqueceu').style.display == '')
+            {
+                document.getElementById('Esqueceu').style.display = 'none'
+            }
+        }
+    );
+        </script>
 
 </body>
 </html>

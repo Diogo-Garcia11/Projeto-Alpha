@@ -12,7 +12,7 @@ $de = 'murillo.joaquim@etec.sp.gov.br'; //email do murilo
 $de_nome = 'Desenvolvedores Alpha sigma male';
 $assunto = "Recuperar senha";
 
-function smtmailer($para, $de, $de_nome, $assunto, $corpo){
+function smtpmailer($para, $de, $de_nome, $assunto, $corpo){
     global $error;
     $mail = new PHPMailer();
     $mail-> IsSMTP();
@@ -40,7 +40,7 @@ function smtmailer($para, $de, $de_nome, $assunto, $corpo){
 $vai = "E-mail: $email \n \n Resposta: $corpo";
  if(smtpmailer($email, 'murillo.joaquim@etec.sp.gov.br', 'Desenvolvedores Alpha sigma male', $corpo, $vai)){
     echo('sucesso enviado, ');
-    header('location:Cadastro.php');
+    header('location:Login.php');
  }
  if (!empty ($error)) echo $error;
 ?>
