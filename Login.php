@@ -10,51 +10,49 @@
 session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
-    $Botao = $_POST["Botao"];
+    $Botao = $_POST["Botaozao"];
     $Usuario = $_POST["Usuario"];
     $Senha = $_POST["Senha"];
-    $Email= $_POST['Email'];
     include "conexao.php";
-    if ($Botao == "Logar")
-    {
-        try
-        {
-            $Comando=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE email_cliente = ? and senha_cliente = ?");
-                
-            $Comando->bindParam(1,$Usuario);
-            $Comando->bindParam(2,$Senha);
-            
 
-            if ($Comando->execute())
-            {
-                if ($Comando->rowCount() >0)
+    try 
+    {
+        $Comandozinho=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+        $Comandozinho->bindParam(1,$Usuario);
+        $Comandozinho->bindParam(2,$Senha);    
+
+        if($Comandozinho-> execute()){
+
+            if($Comandozinho-> rowCount() > 0){
+
+                while($Linhazinha = $Comandozinho -> fetch(PDO:: FETCH_OBJ))
                 {
-                    while($Linha = $Comando -> fetch(PDO:: FETCH_OBJ))
-                    {
-                        $idcliente = $Linha -> id_cliente;
-                        $_SESSION["idCliente"] = $idcliente;
-                        $_SESSION["control"] = "logado";
-                        header('location:Cadastro.php');
-                    }
-                }
+                    $idcliente = $Linhazinha -> id_cliente;
+                    $_SESSION["idCliente"] = $idcliente;
+                    $_SESSION["control"] = "logado";
                 
+                    header('location:Cadastro.php'); 
+                }
             }
-            else
-            {
-                throw new PDOException("Erro: Não foi possível executar a declaração sql.");
-            }
-        }
-        catch (PDOException $erro)
-        {
-            echo"Erro" . $erro->getMessage();
-        }
-    }
-    else if ($Botao == "Cadastro")
+        }        
+    } 
+    catch (PDOException $e) 
+    {
+        echo "Erro de execução da consulta: " . $e->getMessage();
+    }           
+            
+ 
+}
+else if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviar'))
+{
+    $Botao = $_POST["Botao"];
+    $Email= $_POST['Email'];
+    if ($Botao == "Cadastro")
     {
         $_SESSION["control"] = "!logado";
         header('location:Cadastro.php');
     }
-    if($Botao == "Enviar")
+    else if($Botao == "Enviar")
     {
         $novasenha= "alpha";
         
@@ -65,6 +63,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         $_SESSION['emailContato'] = $_POST['Email'];  
         include "respondercontato.php";
     }
+
 }
 else
 {
@@ -75,17 +74,24 @@ else
     Senha: <br>
     <input type="password" name="Senha" placeholder="Senha" maxlenght="8" ><br><br>
 
-    <input type="submit" value="Logar" name="Botao"><br>
+    <input type="submit" value="Login" name="Botaozao"><br>
+    </form>
+    
+    <form action="Login.php?valor=enviar" method="post">
     <input type="submit" value="Cadastro" name="Botao"><br>
     <input type="reset" value="Limpar" name="Botao"><br><br>
 
     <div id="Esqueceu">
+
     <p>Caso esqueceu a senha, insira um email que você tenha acesso:</p>
     <input type="email" placeholder="Email" name="Email"><br>
     <input type="submit" value="Enviar" name="Botao"><br>
+
     </div>
+    </form>
     
-    </form><br>
+    
+    <br>
     <input type="button" value="Esqueci a senha" id="EsqueceuBotao" name="Botao"><br>
 
     <script>
