@@ -10,33 +10,34 @@
 session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
-    $Botao = $_POST ["Botao"];
-    $Usuario = $_POST ["Usuario"];
-    $Senha = $_POST ["Senha"];
+    $Botao = $_POST["Botao"];
+    $Usuario = $_POST["Usuario"];
+    $Senha = $_POST["Senha"];
     $Email= $_POST['Email'];
     include "conexao.php";
     if ($Botao == "Logar")
     {
         try
         {
-            $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? AND senha_cliente =?");
+            $Comando=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE email_cliente = ? and senha_cliente = ?");
                 
-            $Comando->bindParam(1, $Usuario);
-            $Comando->bindParam(2, $Senha);
+            $Comando->bindParam(1,$Usuario);
+            $Comando->bindParam(2,$Senha);
+            
 
             if ($Comando->execute())
             {
                 if ($Comando->rowCount() >0)
                 {
-                    $_SESSION["control"] = "logado";
-                    echo "Logado com sucesso";
-                    header('location:Cadastro.php');
-                    exit();
+                    while($Linha = $Comando -> fetch(PDO:: FETCH_OBJ))
+                    {
+                        $idcliente = $Linha -> id_cliente;
+                        $_SESSION["idCliente"] = $idcliente;
+                        $_SESSION["control"] = "logado";
+                        header('location:Cadastro.php');
+                    }
                 }
-                else
-                {
-                    echo "Usuário ou senha inválidos";
-                } 
+                
             }
             else
             {
