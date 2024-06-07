@@ -32,7 +32,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     if(isset($_POST['Parcelamento']))
     {
         $Parcelamento = $_POST['Parcelamento'];
-        $ValorProduto = $_SESSION['produto_selecionado']['valor_prod'];
+        $ValorProduto = $_SESSION['valorProd'];
         $ValorParcela = $ValorProduto / $Parcelamento;
         $_SESSION['ValorParcela'] = $ValorParcela;
     }
@@ -74,7 +74,7 @@ else{
 
     <label for="">Valor do Produto:</label><br>
     <?php
-    $valorProduto = $_SESSION['produto_selecionado']['valor_prod'];
+    $valorProduto = $_SESSION['valorProd'];
     $valorFormatado = number_format($valorProduto, 2, ',', '.');
     echo "R$ " . $valorFormatado;
     ?><br>
@@ -91,7 +91,7 @@ else{
             {
                 document.getElementById('Parcelamento').style.display = 'none';
                 document.getElementById('Parcelamento').value = '1';
-                var Valor = <?php echo $_SESSION['produto_selecionado']['valor_prod']; ?>;
+                var Valor = <?php echo $_SESSION['valorProd']; ?>;
                 var ValorParcela = Valor / 1;
                 document.getElementById('ValorParcela').textContent = ValorParcela;
             }
@@ -104,7 +104,7 @@ else{
                 {
                     document.getElementById('Parcelamento').style.display = '';
                     document.getElementById('Parcelamento').value = '1';
-                    var Valor = <?php echo $_SESSION['produto_selecionado']['valor_prod']; ?>;
+                    var Valor = <?php echo $_SESSION['valorProd']; ?>;
                     var ValorParcela = Valor / document.getElementById('Parcelamento').value;
                     document.getElementById('ValorParcela').textContent = ValorParcela;
                 }
@@ -114,7 +114,7 @@ else{
     $(document).ready(function(){
         $("#Parcelamento").change(function(){
             var Parcelamento = $(this).val();
-            var Valor = <?php echo $_SESSION['produto_selecionado']['valor_prod']; ?>; // Pega o valor do session pelo php e manda pro javascript
+            var Valor = <?php echo $_SESSION['valorProd']; ?>; // Pega o valor do session pelo php e manda pro javascript
             var ValorParcela = Valor / Parcelamento;
             $("#ValorParcela").text(ValorParcela); // mostra o valor de cada parcela parcela
         });

@@ -9,7 +9,7 @@
     <?php
     session_start();
     
-    if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
+    if(1==1)
     {
         include "conexao.php";
         $Botao = $_POST['Botao'];
@@ -51,7 +51,7 @@
         }
         echo "</table>";
 
-        if($Botao = "Alterar")
+        if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         {
             $Nome = $_POST['Nome'];
             $Endereco = $_POST['Endereco'];

@@ -17,47 +17,30 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     include "conexao.php";
     if ($Botao == "Logar")
     {
-
-        
-        
         try
         {
-            if($Botao == "Logar")
-            {
-                $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+            $Comando=$conexao->prepare("SELECT email_cliente, senha_cliente FROM tb_cliente WHERE email_cliente =? AND senha_cliente =?");
                 
-                $Comando->bindParam(1, $Usuario);
-                $Comando->bindParam(2, $Senha);
-                        
-                if ($Comando->execute())
+            $Comando->bindParam(1, $Usuario);
+            $Comando->bindParam(2, $Senha);
+
+            if ($Comando->execute())
+            {
+                if ($Comando->rowCount() >0)
                 {
-                    if ($Comando->rowCount() >0)
-                    {
-                        while ($Linha = $Comando->fetch(PDO::FETCH_OBJ)) 
-                        {
-                            
-
-                            $email = $Linha->email_cliente;
-                            $_SESSION['email'] = $email;
-
-                            $senha = $Linha->senha_cliente;
-                            $_SESSION['senha'] = $senha;
-                            $_SESSION['senha'] = $senha;
-                            $_SESSION["control"] = "logado";
-                            
-                            header('location:Cadastro.php');
-                        }
-                        
-                    }
-                    else
-                    {
-                            echo "Erro ao tentar logar.";
-                    }
+                    $_SESSION["control"] = "logado";
+                    echo "Logado com sucesso";
+                    header('location:Cadastro.php');
+                    exit();
                 }
+                else
+                {
+                    echo "Usuário ou senha inválidos";
+                } 
+            }
             else
             {
                 throw new PDOException("Erro: Não foi possível executar a declaração sql.");
-            }
             }
         }
         catch (PDOException $erro)
@@ -65,7 +48,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
             echo"Erro" . $erro->getMessage();
         }
     }
-    if ($Botao == "Cadastro")
+    else if ($Botao == "Cadastro")
     {
         $_SESSION["control"] = "!logado";
         header('location:Cadastro.php');
@@ -84,7 +67,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 }
 else
 {
-    ?>
+?>
     <form action="Login.php?valor=enviado" method="post">
     Usuário: <br>
     <input type="email" placeholder="Usuario" name="Usuario"><br>
@@ -121,15 +104,11 @@ else
                 
                 }
             }
-             
         }
     );
-        </script>
-
+</script>
 </body>
 </html>
 <?php
 }
 ?>
-    
-    

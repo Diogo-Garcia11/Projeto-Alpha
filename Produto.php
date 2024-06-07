@@ -25,6 +25,10 @@ if(1==1)
             $nomeProd = $Linha -> nome_prod;
             $valorProd = $Linha -> valor_prod;
             $desProd = $Linha -> des_prod;
+            $_SESSION['nomeProd'] = $nomeProd;
+            $_SESSION['valorProd'] = $valorProd;
+            $_SESSION['desProd'] = $desProd;
+
 
             if($query->rowCount() > 0) {
                 $produto = $query->fetch(PDO::FETCH_OBJ);
@@ -57,12 +61,11 @@ if(1==1)
 
         
 }
-
-
-else{
+else
+{
 ?>
 </body>
 </html>
 <?php
-    }
+}
 ?>

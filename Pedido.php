@@ -13,7 +13,7 @@ echo "Endereço: ".$_SESSION['Endereco']."<br>";
 echo "Forma de Pagamento: ".$_SESSION['FormaPgto']."<br>";
 echo "Condição de pagamento(Quantidade de Parcelas): ".$_SESSION['CondicaoPgto']."<br>";
 echo "Valor da Parcela: ".$_SESSION['ValorParcela']."<br>";
-echo "Valor do pedido: ".$_SESSION['produto_selecionado']['valor_prod'] * $_SESSION['CondicaoPgto']."<br>";
+echo "Valor do pedido: ".$_SESSION['valorProd']."<br>";
 
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
@@ -24,9 +24,9 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 
         try
         {
-            $Comando2=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE  email_cliente =? and senha_cliente =?");
-            $Comando2->bindParam(1 ,$_SESSION['email']);
-            $Comando2->bindParam(2 ,$_SESSION['senha']);
+            $Comando2=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE  nome_cliente =? and endereco_cliente =?");
+            $Comando2->bindParam(1 ,$_SESSION['Nome']);
+            $Comando2->bindParam(2 ,$_SESSION['Endereco']);
             $idcliente=$Comando2->fetch(PDO::FETCH_OBJ);
             $_SESSION["idCliente"] = $idcliente;
             date_default_timezone_set('America/Sao_Paulo');
@@ -36,8 +36,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                     $Comando->bindParam(2, $_SESSION['FormaPgto']);
                     $Comando->bindParam(3, $_SESSION['CondicaoPgto']);
                     $Comando->bindParam(4, $_SESSION['ValorParcela']);
-                    $Comando->bindParam(5, $_SESSION['produto_selecionado']['valor_prod']);
-                   
+                    $Comando->bindParam(5, $_SESSION['valorProd']);
                     $Comando->bindParam(6, $idcliente);
                     $Comando->bindParam(7, $_SESSION["idProd"]);
                     
