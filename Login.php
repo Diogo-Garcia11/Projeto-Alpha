@@ -18,10 +18,16 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     try 
     {
         $Comandozinho=$conexao->prepare("SELECT * FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+<<<<<<< Updated upstream
         $Comandozinho->bindParam(1,$Usuario_cliente);
         $Comandozinho->bindParam(2,$Senha_cliente);    
         echo $Usuario_cliente;
         echo $Senha_cliente;
+=======
+        $Comandozinho->bindParam(1,$Usuario);
+        $Comandozinho->bindParam(2,$Senha);    
+
+>>>>>>> Stashed changes
         if($Comandozinho-> execute()){
 
             if($Comandozinho-> rowCount() > 0)

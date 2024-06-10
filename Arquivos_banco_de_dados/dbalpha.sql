@@ -30,13 +30,13 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `tb_cliente`;
 CREATE TABLE IF NOT EXISTS `tb_cliente` (
   `id_cliente` int NOT NULL AUTO_INCREMENT,
-  `nome_cliente` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `endereco_cliente` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_cliente` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `senha_cliente` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nome_cliente` varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `endereco_cliente` varchar(120) CHARACTER SET utf8COLLATE utf8_unicode_ci NOT NULL,
+  `email_cliente` varchar(35) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `senha_cliente` varchar(20) CHARACTER SET utf8m COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_cliente`),
   UNIQUE KEY `email_cliente` (`email_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `tb_pedido`;
 CREATE TABLE IF NOT EXISTS `tb_pedido` (
   `id_pedido` int NOT NULL AUTO_INCREMENT,
   `dta_pedido` datetime NOT NULL,
-  `formapgto_pedido` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `formapgto_pedido` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `condicaopgto_pedido` int NOT NULL,
   `valorparcela_pedido` decimal(7,2) NOT NULL,
   `valor_pedido` decimal(7,2) NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
   PRIMARY KEY (`id_pedido`),
   KEY `id_cliente` (`id_cliente`),
   KEY `id_produto` (`id_produto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -68,11 +68,11 @@ CREATE TABLE IF NOT EXISTS `tb_pedido` (
 DROP TABLE IF EXISTS `tb_produto`;
 CREATE TABLE IF NOT EXISTS `tb_produto` (
   `id_produto` int NOT NULL AUTO_INCREMENT,
-  `nome_prod` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nome_prod` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `valor_prod` decimal(6,2) NOT NULL,
-  `des_prod` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `des_prod` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id_produto`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Despejando dados para a tabela `tb_produto`
