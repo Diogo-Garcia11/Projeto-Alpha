@@ -1,5 +1,5 @@
 <?php
-$Bco = 'dbalpha';
+$Bco = 'bdalphamdb';
 $Usuario = 'root';
 $Senha ='';
 

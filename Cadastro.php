@@ -23,8 +23,8 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
         if($_SESSION["control"] == "logado")
         {
-            echo "logado";
-            $Comando=$conexao->prepare("UPDATE nome_cliente, endereco_cliente, email_cliente, senha_cliente SET nome_cliente = ?, endereco_cliente = ?, email_cliente = ?, senha_cliente =? FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+
+            $Comando=$conexao->prepare("UPDATE tb_cliente SET nome_cliente = ?, endereco_cliente = ?, email_cliente = ?, senha_cliente =? FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
             
                     $Comando->bindParam(1, $Nome);
                     $Comando->bindParam(2, $Endereco);

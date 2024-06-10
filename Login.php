@@ -11,19 +11,21 @@ session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
     $Botao = $_POST["Botaozao"];
-    $Usuario = $_POST["Usuario"];
-    $Senha = $_POST["Senha"];
+    $Usuario_cliente = $_POST["Usuario"];
+    $Senha_cliente = $_POST["Senha"];
     include "conexao.php";
 
     try 
     {
-        $Comandozinho=$conexao->prepare("SELECT id_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
-        $Comandozinho->bindParam(1,$Usuario);
-        $Comandozinho->bindParam(2,$Senha);    
-
+        $Comandozinho=$conexao->prepare("SELECT * FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+        $Comandozinho->bindParam(1,$Usuario_cliente);
+        $Comandozinho->bindParam(2,$Senha_cliente);    
+        echo $Usuario_cliente;
+        echo $Senha_cliente;
         if($Comandozinho-> execute()){
 
-            if($Comandozinho-> rowCount() > 0){
+            if($Comandozinho-> rowCount() > 0)
+            {
 
                 while($Linhazinha = $Comandozinho -> fetch(PDO:: FETCH_OBJ))
                 {
@@ -45,8 +47,10 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 }
 else if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviar'))
 {
+    include "conexao.php";
     $Botao = $_POST["Botao"];
     $Email= $_POST['Email'];
+    $novasenha= "alpha";
     if ($Botao == "Cadastro")
     {
         $_SESSION["control"] = "!logado";
@@ -54,14 +58,29 @@ else if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviar'))
     }
     else if($Botao == "Enviar")
     {
-        $novasenha= "alpha";
         
-        $Comando2=$conexao->prepare("UPDATE senha_cliente SET senha_cliente = ? FROM tb_cliente WHERE email_cliente =?");
-        $Comando2->bindParam(1, $novasenha);
-        $Comando2->bindParam(2, $Email);
+        try
+        {
+            $Comando2=$conexao->prepare("UPDATE tb_cliente SET senha_cliente = ? WHERE email_cliente =?");
+            $Comando2->bindParam(1, $novasenha);
+            $Comando2->bindParam(2, $Email);
+            if($Comando2 ->execute())
+            {
+                if($Comando2->rowCount()>0)
+                {
+                    $_SESSION['emailContato'] = $Email;  
+                    include 'location:respondercontato.php';
+                    
+                }
+            }
+            header('location:Cadastro.php');
+        }
+        catch (PDOException $e) 
+        {
+            echo "Erro de execução da consulta: " . $e->getMessage();
+        } 
 
-        $_SESSION['emailContato'] = $_POST['Email'];  
-        include "respondercontato.php";
+       
     }
 
 }

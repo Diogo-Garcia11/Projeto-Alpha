@@ -1,6 +1,6 @@
 <?php
 $email = $_SESSION['emailContato'];
-$corpo = "Sua senha foi alterada, agora é \"alpha\""; // fazer mensangem para o usuario falando da recuperação de senha
+$corpo = "Sua senha foi alterada, agora é \"alpha\", mude na tela cadastro"; // fazer mensangem para o usuario falando da recuperação de senha
 $data_envio = date('d/m/Y');
 $hora_envio = date('H:i:s');
 
@@ -17,16 +17,16 @@ function smtpmailer($para, $de, $de_nome, $assunto, $corpo){
     $mail = new PHPMailer();
     $mail-> IsSMTP();
     $mail->SMTPDebug = 0;
-    $mail->$SMTPAuth= true;
-    $mail->$SMTPSecure = 'tls';
-    $mail->$Host = 'smtp.offices365.com';
-    $mail->$Port = 587;
-    $mail->$Username = USER;
-    $mail->$Password = PWD;
-    $mail->$SectFrom($de, $de_nome);
-    $mail->$Subject= $assunto;
-    $mail->$Body= $corpo;
-    $mail->$AddAddress($para);
+    $mail->SMTPAuth = true;   // Autenticação ativada
+    $mail->SMTPSecure = 'tls';  // Padrão de segurança
+    $mail->Host = 'smtp.office365.com'; // SMTP utilizado
+    $mail->Port = 587;      // A porta 587 deverá estar aberta em seu servidor
+    $mail->Username = USER;
+    $mail->Password = PWD;
+    $mail->SetFrom($de, $de_nome);
+    $mail->Subject = $assunto;
+    $mail->Body = $corpo;
+    $mail->AddAddress($para);
     if(!$mail -> Send()){
         $error = 'Mail Error: ' . $mail->ErrorInfo;
         return false;
