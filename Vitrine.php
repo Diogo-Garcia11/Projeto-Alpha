@@ -7,11 +7,12 @@
 </head>
 <body>
 <?php
-
 session_start();
 if(1==1)
 {
-
+    $nada = "";
+    $_SESSION['idProd'] = $nada;
+    
     include "conexao.php";
 
     $Matriz=$conexao->prepare("SELECT * FROM tb_produto");
@@ -55,9 +56,10 @@ if(1==1)
         }
         
 }
-else{
+else
+{
+    
 ?>
-
 </body>
 </html>
 <?php

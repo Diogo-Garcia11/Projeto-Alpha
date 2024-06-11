@@ -33,7 +33,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                     $_SESSION["idCliente"] = $idcliente;
                     $_SESSION["control"] = "logado";
                     echo "<script> alert('Logado com sucesso');</script>";
-                    header('location:Cadastro.php'); 
+                    header('location:Pgto.php'); 
                 }
             }
             else
@@ -72,10 +72,12 @@ else if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviar'))
             {
                 if($Comando2->rowCount()>0)
                 {
-                    echo "<script> alert('Nova senha enviada para o email informado');</script>";
                     $_SESSION['emailContato'] = $Email;  
                     include 'respondercontato.php';
+                   
                 }
+                echo "<script> alert('Nova senha enviada para o email informado');</script>";
+                
             }
             
         }
@@ -93,21 +95,21 @@ else
 ?>
     <form action="Login.php?valor=enviado" method="post">
     Usuário: <br>
-    <input type="email" placeholder="Usuario" name="Usuario"><br>
+    <input type="email" placeholder="Usuario" name="Usuario"><br><br>
     Senha: <br>
     <input type="password" name="Senha" placeholder="Senha" maxlenght="8" ><br><br>
 
     <input type="submit" value="Login" name="Botaozao"><br>
-    </form>
+    </form><br>
     
     <form action="Login.php?valor=enviar" method="post">
-    <input type="submit" value="Cadastro" name="Botao"><br>
-    <input type="reset" value="Limpar" name="Botao"><br><br>
+    <input type="submit" value="Cadastro" name="Botao"><br><br>
+    <input type="reset" value="Limpar" name="Botao"><br>
 
     <div id="Esqueceu">
 
     <p>Caso esqueceu a senha, insira um email que você tenha acesso:</p>
-    <input type="email" placeholder="Email" name="Email"><br>
+    <input type="email" placeholder="Email" name="Email"><br><br>
     <input type="submit" value="Enviar" name="Botao"><br>
 
     </div>

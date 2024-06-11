@@ -62,7 +62,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                 if ($Comando->rowCount() >0)
                 {
                     echo "Cadastro realizado com sucesso";
-                    header('location:Pgto.php');
+                    header('location:Login.php');
                 }
             }
         }
@@ -78,13 +78,13 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 else{
 ?>
     <form action="Cadastro.php?valor=enviado"  method="post">
-    <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35" required><br>
-    <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"required><br>
-    <input type="email" name="Email" placeholder="Email" required><br>
-    <input type="password" name="Senha" placeholder="Senha" required><br>
-    <input type="password" name="ConfSenha" placeholder="Confirme a Senha" required><br>
-    <input type="submit" name="Enviar" value="Confirmar Dados"><br>
-    <input type="reset" name="Limpar" value="Limpar"><br>
+    <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35" required><br><br>
+    <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"required><br><br>
+    <input type="email" name="Email" placeholder="Email" required><br><br>
+    <input type="password" name="Senha" placeholder="Senha" required><br><br>
+    <input type="password" name="ConfSenha" placeholder="Confirme a Senha" required><br><br>
+    <input type="submit" name="Enviar" value="Confirmar Dados"><br><br>
+    <input type="reset" name="Limpar" value="Limpar"><br><br>
     </form>
 </body>
 </html>

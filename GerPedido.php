@@ -35,7 +35,7 @@
             }  
         }
         
-        else if($Botao = "Voltar")
+        else if($Botao == "Voltar para a Vitrine")
         {
             header('location:Vitrine.php');
         }
@@ -87,12 +87,13 @@
         echo "</table>";
     ?>
     <form action="GerPedido.php?valor=enviado" method="post">
+    <p>Preencha caso deseje alterar seu nome e endereço do cadastro</p>
     <label for="Nome">Nome:</label>
-    <input type="text" name="Nome">
+    <input type="text" name="Nome"><br><br>
     <label for="Endereco">Endereço:</label>
-    <input type="text" name="Endereco"><br>
-    <input name="Botao" type="submit" value="Alterar"><br>
-    <input name="Botao" type="submit" value="Voltar">
+    <input type="text" name="Endereco"><br><br>
+    <input name="Botao" type="submit" value="Alterar"><br><br>
+    <input name="Botao" type="submit" value="Voltar para a Vitrine">
 
     </form>
 </body>

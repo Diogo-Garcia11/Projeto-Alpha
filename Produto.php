@@ -35,9 +35,9 @@ if(1==1)
 
                 $_SESSION['produto_selecionado'] = $produto;
                 
-                echo "<p>Nome do Produto:$nomeProd</p>";
-                echo "<p>Valor: R$ $valorProd</p>";
-                echo "<p>Descrição: $desProd</p>";
+                echo "<p>Nome do Produto:$nomeProd</p>"."<br>";
+                echo "<p>Valor: R$ $valorProd</p>"."<br>";
+                echo "<p>Descrição: $desProd</p>"."<br>";
                 ?>
                 <form action='Produto.php?valor=enviado' method='post'>
                 <input type='submit' name='BotaoEnviar' value='Comprar'>

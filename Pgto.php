@@ -52,7 +52,8 @@ else{
     
     <label for="Opcao">Selecione a opção de pagamento</label><br>
     <input type="radio" name="Opcao" id="Pix" value="Pix">Pix<br>
-    <input type="radio" name="Opcao" id="Cartao"value="Cartao">Cartão<br>
+    <input type="radio" name="Opcao" id="Cartao"value="Cartao">Cartão<br><br>
+
     <select name="Parcelamento" id="Parcelamento">
         <option default value="1">Selecione a quantidade de parcelas</option>
         <option value="2">2X</option>
@@ -66,7 +67,7 @@ else{
         <option value="10">10X</option>
         <option value="11">11X</option>
         <option value="12">12X</option>
-    </select><br>
+    </select><br><br>
 
     <label for="">Valor de Cada parcela:</label><br>
     <div id="ValorParcela">
@@ -78,10 +79,10 @@ else{
     $valorProduto = $_SESSION['valorProd'];
     $valorFormatado = number_format($valorProduto, 2, '.', ',');
     echo "R$ " . $valorFormatado;
-    ?><br>
+    ?><br><br>
     
 
-    <input type="submit" name="Enviar" value="Confirmar Pagamento"><br>
+    <input type="submit" name="Enviar" value="Confirmar Pagamento"><br><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
     </form>
     
