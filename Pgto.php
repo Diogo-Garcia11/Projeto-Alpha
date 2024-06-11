@@ -32,7 +32,9 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     if(isset($_POST['Parcelamento']))
     {
         $Parcelamento = $_POST['Parcelamento'];
-        $ValorParcela = $_SESSION['Valor'] / $Parcelamento;
+        $ValorProduto = $_SESSION['valorProd'];
+        $ValorParcela = $ValorProduto / $Parcelamento;
+        
         $_SESSION['ValorParcela'] = $ValorParcela;
     }
         
@@ -50,7 +52,7 @@ else{
     
     <label for="Opcao">Selecione a opção de pagamento</label><br>
     <input type="radio" name="Opcao" id="Pix" value="Pix">Pix<br>
-    <input type="radio" name="Opcao" id="Cartao"value="Pix">Cartão<br>
+    <input type="radio" name="Opcao" id="Cartao"value="Cartao">Cartão<br>
     <select name="Parcelamento" id="Parcelamento">
         <option default value="1">Selecione a quantidade de parcelas</option>
         <option value="2">2X</option>
@@ -73,8 +75,9 @@ else{
 
     <label for="">Valor do Produto:</label><br>
     <?php
-    $_SESSION['Valor'] = number_format($_SESSION['Valor'], 2,',','.');
-    echo $_SESSION['Valor'];
+    $valorProduto = $_SESSION['valorProd'];
+    $valorFormatado = number_format($valorProduto, 2, '.', ',');
+    echo "R$ " . $valorFormatado;
     ?><br>
     
 
@@ -89,7 +92,7 @@ else{
             {
                 document.getElementById('Parcelamento').style.display = 'none';
                 document.getElementById('Parcelamento').value = '1';
-                var Valor = <?php echo $_SESSION['Valor']; ?>;
+                var Valor = <?php echo $_SESSION['valorProd']; ?>;
                 var ValorParcela = Valor / 1;
                 document.getElementById('ValorParcela').textContent = ValorParcela;
             }
@@ -102,7 +105,7 @@ else{
                 {
                     document.getElementById('Parcelamento').style.display = '';
                     document.getElementById('Parcelamento').value = '1';
-                    var Valor = <?php echo $_SESSION['Valor']; ?>;
+                    var Valor = <?php echo $_SESSION['valorProd']; ?>;
                     var ValorParcela = Valor / document.getElementById('Parcelamento').value;
                     document.getElementById('ValorParcela').textContent = ValorParcela;
                 }
@@ -112,9 +115,10 @@ else{
     $(document).ready(function(){
         $("#Parcelamento").change(function(){
             var Parcelamento = $(this).val();
-            var Valor = <?php echo $_SESSION['Valor']; ?>; // Pega o valor do session pelo php e manda pro javascript
+            var Valor = <?php echo $_SESSION['valorProd']; ?>; // Pega o valor do session pelo php e manda pro javascript
             var ValorParcela = Valor / Parcelamento;
-            $("#ValorParcela").text(ValorParcela); // mostra o valor de cada parcela parcela
+            var ValorParcelaFormatado = ValorParcela.toFixed(2)
+            $("#ValorParcela").text(ValorParcelaFormatado); // mostra o valor de cada parcela parcela
         });
     });
     </script>

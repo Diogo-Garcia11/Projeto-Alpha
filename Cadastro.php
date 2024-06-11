@@ -10,40 +10,70 @@
 session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
+    include "conexao.php";
     $Botão = $_POST['Enviar'];
     $Nome = $_POST['Nome'];
     $Endereco = $_POST['Endereco'];
     $Email = $_POST['Email'];
     $Senha = $_POST['Senha'];
-
-    if($_SESSION["control" == "logado"])
+    $ConfSenha = $_POST['ConfSenha'];
+    
+    $_SESSION['Nome'] = $Nome;
+    $_SESSION['Endereco'] = $Endereco;
+    if ($Senha == $ConfSenha)
     {
-        $Comando=$conexao->prepare("UPDATE nome_cliente, endereco_cliente, email_cliente, senha_cliente SET nome_cliente = ?, endereco_cliente = ?, email_cliente = ?, senha_cliente =? FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+        if($_SESSION["control"] == "logado")
+        {
+
+            $Comando=$conexao->prepare("UPDATE tb_cliente SET nome_cliente = ?, endereco_cliente = ?, email_cliente = ?, senha_cliente =? WHERE id_cliente =?");
+            
+                    $Comando->bindParam(1, $Nome);
+                    $Comando->bindParam(2, $Endereco);
+                    $Comando->bindParam(3, $Email);
+                    $Comando->bindParam(4, $Senha);
+                    $Comando->bindParam(5, $_SESSION['idCliente']);
+                    
+            if ($Comando->execute())
+            {
+                if ($Comando->rowCount() >0)
+                {
+                    echo "Dados atualizados com sucesso";
+                    header('location:Pgto.php');
+                }
+                else
+                {
+                    echo "<script> alert('Usuario não encontrado');</script>";
+                }
+            }
+            
+        }
+        else if($_SESSION["control"] != "logado")
+        {
+            echo "não logado";
+            $Comando=$conexao->prepare("INSERT INTO tb_cliente (nome_cliente, endereco_cliente, email_cliente, senha_cliente) VALUES(?,?,?,?)");
+            
+            $Comando->bindParam(1, $Nome);
+            $Comando->bindParam(2, $Endereco);
+            $Comando->bindParam(3, $Email);
+            $Comando->bindParam(4, $Senha);
+            
+            if ($Comando->execute())
+            {
+                if ($Comando->rowCount() >0)
+                {
+                    echo "Cadastro realizado com sucesso";
+                    header('location:Pgto.php');
+                }
+            }
+        }
         
-                $Comando->bindParam(1, $Nome);
-                $Comando->bindParam(2, $Endereco);
-                $Comando->bindParam(3, $Email);
-                $Comando->bindParam(4, $Senha);
     }
     else
     {
-        $Comando=$conexao->prepare("INSERT INTO tb_cliente (nome_cliente, endereco_cliente, email_cliente, senha_cliente) VALUES(?,?,?,?)");
-        
-                $Comando->bindParam(1, $Nome);
-                $Comando->bindParam(2, $Endereco);
-                $Comando->bindParam(3, $Email);
-                $Comando->bindParam(4, $Senha);
+        echo "Senhas não conferem";
+        echo "<a href='Cadastro.php'>Voltar</a>";
+        exit();
     }
-    $_SESSION['Nome'] = $_POST['Nome'];
-    $_SESSION['Endereco'] = $_POST['Endereco'];
-    
-
-    if($Botão == "Confirmar Dados")
-    {
-        header('location:Pgto.php');
-        
-    }
-    
 }
 else{
 ?>
@@ -51,8 +81,8 @@ else{
     <input type="text" name="Nome" id="Nome" placeholder="Nome" size="35" required><br>
     <input type="text" name="Endereco" id="Endereco" placeholder="Endereço"required><br>
     <input type="email" name="Email" placeholder="Email" required><br>
-    <input type="password" name="Senha" placeholder="Senha" required>0<br>
-    <input type="password" name="ConfSenha" placeholder="Confirme a Senha" required>
+    <input type="password" name="Senha" placeholder="Senha" required><br>
+    <input type="password" name="ConfSenha" placeholder="Confirme a Senha" required><br>
     <input type="submit" name="Enviar" value="Confirmar Dados"><br>
     <input type="reset" name="Limpar" value="Limpar"><br>
     </form>

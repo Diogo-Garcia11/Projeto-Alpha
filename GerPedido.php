@@ -7,34 +7,42 @@
 </head>
 <body>
     <?php
+    session_start();
     if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
-        session_start();
+        $Nome = $_POST['Nome'];
+        $Endereco = $_POST['Endereco'];
+        $Botao = $_POST['Botao'];
+        if($Botao == "Alterar")
+        {
+            include "conexao.php";
+            $Comando = $conexao->prepare("UPDATE tb_cliente set nome_cliente=?, endereco_cliente=? WHERE id_cliente =?");
+            $Comando->bindParam(1, $Nome);
+            $Comando->bindParam(2, $Endereco);
+            $Comando->bindParam(3, $_SESSION['idCliente']);
+            if($Comando-> execute()){
+
+                if($Comando-> rowCount() > 0)
+                {
+                    echo "<script> alert('Dados alterados com sucesso');</script>";
+                    header('location:Vitrine.php');
+                    
+                }
+                else
+                {
+                    echo "<script> alert('Erro ao achar o usuário');</script>";
+                }
+            }  
+        }
+        
+        else if($Botao = "Voltar")
+        {
+            header('location:Vitrine.php');
+        }
+    }
+    else
+    { 
         include "conexao.php";
-        if ($_SESSION['controleResp'] == 'localizado')
-        {
-            echo "Dados do Contato:<br><br>";
-            echo "Nome: <BR>" .  $_SESSION['nomeContato']. '<br>'. '<br>';
-            echo "Fone:<BR>" . $_SESSION['foneContato']. '<br>' .'<br>';
-            echo "Email:<BR>" .  $_SESSION['emailContato'] . '<br>'. '<br>';
-            echo "Assunto: <BR>" .  $_SESSION['assuntoContato'].'<br>'. '<br>';
-            echo "Mensagem: <BR>" .  $_SESSION['msgContato'] . '<br>'. '<br>';
-            echo "Resposta: <BR>" . $_SESSION['respContato'] . '<br>'. '<br>';
-            echo "Cadastro localizado com sucesso:". '<br>' .'<br>';
-        }
-
-
-        else if ($_SESSION['controleResp'] == 'respondido')
-        {
-            echo "Resposta gravada com sucesso:<br><br>";
-        }
-
-
-        else if ($_SESSION['controleResp'] == 'enviado')
-        {
-            echo "Resposta enviada com sucesso:<br><br>";
-        }
-
         //Carrega a tabela
         $Matriz=$conexao->prepare("SELECT * FROM tb_pedido");
 
@@ -43,62 +51,48 @@
 
         echo "<table border=1>";
         echo "<tr>";
-        echo "<td> Id Pedido </td>";
+        echo "<td> Id do Pedido </td>";
         echo "<td> Data/Hora Do Pedido</td>";
+        echo "<td> Forma de Pagamento do Pedido</td>";
+        echo "<td> Condição de Pagamento do Pedido</td>";
+        echo "<td> Valor de Cada Parcela do Pedido</td>";
         echo "<td> Valor do Pedido</td>";
-        echo "<td> Status do Pedido</td>";
         echo "<td> Id do Cliente</td>";
         echo "<td> Id do Produto</td>";
-        
         echo "</tr>";
 
         while ($Linha = $Matriz -> fetch(PDO:: FETCH_OBJ))
         {
             $idPedido = $Linha -> id_pedido;
             $dataPedido = $Linha -> dta_pedido;
+            $formaPgto = $Linha -> formapgto_pedido;
+            $condicaoPgto = $Linha -> condicaopgto_pedido;
+            $valorParcela = $Linha -> valorparcela_pedido;
             $valorPedido = $Linha -> valor_pedido;
-            $statusPedido = $Linha -> status_pedido;
             $idCliente = $Linha -> id_cliente;
-            $id_cliente = $Linha -> id_produto;
+            $idProduto = $Linha -> id_produto;
             
 
             echo "<tr>";
             echo "<td>" . $idPedido. "</td>";
             echo "<td>" . $dataPedido. "</td>";
+            echo "<td>" . $formaPgto. "</td>";
+            echo "<td>" . $condicaoPgto. "</td>";
+            echo "<td>" . $valorParcela. "</td>";
             echo "<td>" . $valorPedido. "</td>";
-            echo "<td>" . $statusPedido. "</td>";
             echo "<td>" . $idCliente. "</td>";
-            echo "<td>" . $id_cliente. "</td>";
+            echo "<td>" . $idProduto. "</td>";
             echo "</tr>";
         }
         echo "</table>";
-
-        if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado')){
-            if($_POST['id_contato']!= "") $_SESSION['idContato'] = $_POST['id_contato'];
-            if($_POST['resp_contato'] !="") $_SESSION['respContato'] = $_POST['resp_contato'];
-            $Botao = $_POST ['Botao'];
-
-            if($Botao == "Alterar")
-            {
-                include "alterarcontato.php";
-            }
-            if($Botao == "Enviar")
-            {
-                include "respondercontato.php";
-            }
-            if($Botao == "Localizar")
-            {
-                include "localizarcontato.php";
-            }
-        }
-    }
-
-    else
-    {
     ?>
-    <form action="Pedido.php?valor=enviado" method="post">
-    
-    <input class="button" type="submit" value="Alterar">
+    <form action="GerPedido.php?valor=enviado" method="post">
+    <label for="Nome">Nome:</label>
+    <input type="text" name="Nome">
+    <label for="Endereco">Endereço:</label>
+    <input type="text" name="Endereco"><br>
+    <input name="Botao" type="submit" value="Alterar"><br>
+    <input name="Botao" type="submit" value="Voltar">
 
     </form>
 </body>
