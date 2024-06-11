@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vitrine</title>
 </head>
 <body>
 <?php
+
 session_start();
 if(1==1)
 {
@@ -56,6 +57,7 @@ if(1==1)
 }
 else{
 ?>
+
 </body>
 </html>
 <?php
