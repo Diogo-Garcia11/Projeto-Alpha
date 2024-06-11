@@ -38,9 +38,10 @@ function smtpmailer($para, $de, $de_nome, $assunto, $corpo){
 }
 
 $vai = "E-mail: $email \n \n Resposta: $corpo";
- if(smtpmailer($email, 'murillo.joaquim@etec.sp.gov.br', 'Desenvolvedores Alpha sigma male', $corpo, $vai)){
+
+ if(smtpmailer($email, 'murillo.joaquim@etec.sp.gov.br', 'Murillo Prevelato Gabriel Joaquim', 'Mudança de Senha', $vai)){
     echo('sucesso enviado, ');
-    header('location:Login.php');
+    header('location:Cadastro.php');
  }
  if (!empty ($error)) echo $error;
 ?>
