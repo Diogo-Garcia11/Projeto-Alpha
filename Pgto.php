@@ -34,6 +34,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         $Parcelamento = $_POST['Parcelamento'];
         $ValorProduto = $_SESSION['valorProd'];
         $ValorParcela = $ValorProduto / $Parcelamento;
+        
         $_SESSION['ValorParcela'] = $ValorParcela;
     }
         
@@ -51,7 +52,7 @@ else{
     
     <label for="Opcao">Selecione a opção de pagamento</label><br>
     <input type="radio" name="Opcao" id="Pix" value="Pix">Pix<br>
-    <input type="radio" name="Opcao" id="Cartao"value="Pix">Cartão<br>
+    <input type="radio" name="Opcao" id="Cartao"value="Cartao">Cartão<br>
     <select name="Parcelamento" id="Parcelamento">
         <option default value="1">Selecione a quantidade de parcelas</option>
         <option value="2">2X</option>
@@ -75,7 +76,7 @@ else{
     <label for="">Valor do Produto:</label><br>
     <?php
     $valorProduto = $_SESSION['valorProd'];
-    $valorFormatado = number_format($valorProduto, 2, ',', '.');
+    $valorFormatado = number_format($valorProduto, 2, '.', ',');
     echo "R$ " . $valorFormatado;
     ?><br>
     
@@ -116,7 +117,8 @@ else{
             var Parcelamento = $(this).val();
             var Valor = <?php echo $_SESSION['valorProd']; ?>; // Pega o valor do session pelo php e manda pro javascript
             var ValorParcela = Valor / Parcelamento;
-            $("#ValorParcela").text(ValorParcela); // mostra o valor de cada parcela parcela
+            var ValorParcelaFormatado = ValorParcela.toFixed(2)
+            $("#ValorParcela").text(ValorParcelaFormatado); // mostra o valor de cada parcela parcela
         });
     });
     </script>

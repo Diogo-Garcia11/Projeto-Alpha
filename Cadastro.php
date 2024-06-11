@@ -17,6 +17,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     $Email = $_POST['Email'];
     $Senha = $_POST['Senha'];
     $ConfSenha = $_POST['ConfSenha'];
+    
     $_SESSION['Nome'] = $Nome;
     $_SESSION['Endereco'] = $Endereco;
     if ($Senha == $ConfSenha)
@@ -24,21 +25,27 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         if($_SESSION["control"] == "logado")
         {
 
-            $Comando=$conexao->prepare("UPDATE tb_cliente SET nome_cliente = ?, endereco_cliente = ?, email_cliente = ?, senha_cliente =? FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+            $Comando=$conexao->prepare("UPDATE tb_cliente SET nome_cliente = ?, endereco_cliente = ?, email_cliente = ?, senha_cliente =? WHERE id_cliente =?");
             
                     $Comando->bindParam(1, $Nome);
                     $Comando->bindParam(2, $Endereco);
                     $Comando->bindParam(3, $Email);
                     $Comando->bindParam(4, $Senha);
+                    $Comando->bindParam(5, $_SESSION['idCliente']);
                     
             if ($Comando->execute())
             {
                 if ($Comando->rowCount() >0)
                 {
                     echo "Dados atualizados com sucesso";
+                    header('location:Pgto.php');
+                }
+                else
+                {
+                    echo "<script> alert('Usuario não encontrado');</script>";
                 }
             }
-            header('location:Pgto.php');
+            
         }
         else if($_SESSION["control"] != "logado")
         {

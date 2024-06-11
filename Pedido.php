@@ -12,19 +12,19 @@ echo "Nome: ".$_SESSION['Nome']."<br>";
 echo "Endereço: ".$_SESSION['Endereco']."<br>";
 echo "Forma de Pagamento: ".$_SESSION['FormaPgto']."<br>";
 echo "Condição de pagamento(Quantidade de Parcelas): ".$_SESSION['CondicaoPgto']."<br>";
-echo "Valor da Parcela: ".$_SESSION['ValorParcela']."<br>";
+$valorParcelaFormatado = number_format($_SESSION['ValorParcela'],2);
+echo "Valor da Parcela: ".$valorParcelaFormatado."<br>";
 echo "Valor do pedido: ".$_SESSION['valorProd']."<br>";
 
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
-
-    if(isset($_POST['Botao']) && ($_POST['Botao'] == 'Gerenciar')) 
+    $Botao = $_POST['Botao'];
+    if($Botao == "Gerenciar") 
     {
         include "conexao.php";
 
         try
         {
-            
             date_default_timezone_set('America/Sao_Paulo');
             $DateTimedeagora = date('Y-m-d H:i:s');
             $Comando=$conexao->prepare("INSERT INTO tb_pedido (dta_pedido, formapgto_pedido, condicaopgto_pedido, valorparcela_pedido, valor_pedido,id_cliente,id_produto)VALUES (?,?,?,?,?,?,?)");
@@ -41,7 +41,6 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                 if ($Comando->rowCount() >0)
                 {
                     echo"<script> alert('Pedido registrado com sucesso!')</script>";
-                    echo ('<meta http equiv="refresh"content=0;""Pedido.php">');
                     header('location:GerPedido.php');
                 }
                 else
@@ -67,7 +66,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 else{
 ?> 
     <form action="Pedido.php?valor=enviado"  method="post">
-    <input type="submit" name="Botao"  value="Gerenciar">
+    <input type="submit" name="Botao" value="Gerenciar">
     </form>
 </body>
 </html>

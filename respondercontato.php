@@ -8,7 +8,7 @@ require_once("phpmailer/class.phpmailer.php");
 
 include "senhaemail.php";
 $para = $email;
-$de = 'murillo.joaquim@etec.sp.gov.br'; //email do murilo
+$de = 'diogogarcia18@outlook.com'; //email do murilo
 $de_nome = 'Desenvolvedores Alpha sigma male';
 $assunto = "Recuperar senha";
 
@@ -39,9 +39,9 @@ function smtpmailer($para, $de, $de_nome, $assunto, $corpo){
 
 $vai = "E-mail: $email \n \n Resposta: $corpo";
 
- if(smtpmailer($email, 'murillo.joaquim@etec.sp.gov.br', 'Murillo Prevelato Gabriel Joaquim', 'Mudança de Senha', $vai)){
-    echo('sucesso enviado, ');
-    header('location:Cadastro.php');
+ if(smtpmailer($email, 'diogogarcia18@outlook.com', 'Diogo Pinheiro Garcia', 'Nova Senha do Projeto Alpha', $vai)){
+    echo('Enviado com sucesso');
+    header('location:Login.php');
  }
  if (!empty ($error)) echo $error;
 ?>

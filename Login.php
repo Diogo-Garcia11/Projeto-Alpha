@@ -21,12 +21,6 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 
         $Comandozinho->bindParam(1,$Usuario_cliente);
         $Comandozinho->bindParam(2,$Senha_cliente);    
-        echo $Usuario_cliente;
-        echo $Senha_cliente;
-
-        $Comandozinho->bindParam(1,$Usuario);
-        $Comandozinho->bindParam(2,$Senha);    
-
 
         if($Comandozinho-> execute()){
 
@@ -38,9 +32,13 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                     $idcliente = $Linhazinha -> id_cliente;
                     $_SESSION["idCliente"] = $idcliente;
                     $_SESSION["control"] = "logado";
-                
+                    echo "<script> alert('Logado com sucesso');</script>";
                     header('location:Cadastro.php'); 
                 }
+            }
+            else
+            {
+                echo "<script> alert('Usuario não encontrado');</script>";
             }
         }        
     } 
@@ -74,13 +72,12 @@ else if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviar'))
             {
                 if($Comando2->rowCount()>0)
                 {
-                    echo "<script> alert('Senha enviada para o email informado');</script>";
+                    echo "<script> alert('Nova senha enviada para o email informado');</script>";
                     $_SESSION['emailContato'] = $Email;  
                     include 'respondercontato.php';
-                    
                 }
             }
-            header('location:Cadastro.php');
+            
         }
         catch (PDOException $e) 
         {

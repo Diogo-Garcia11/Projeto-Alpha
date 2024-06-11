@@ -1,4 +1,4 @@
 <?php
-define('USER', 'murillo.joaquim@etec.sp.gov.br'); //email do murilo
-define('PWD', "#Bmta5')gGAdtk^"); // senha da conta do murilo
+define('USER', 'diogogarcia18@outlook.com'); //email do murilo
+define('PWD', "UZcP@r15jk,"); // senha da conta do murilo
 ?>
