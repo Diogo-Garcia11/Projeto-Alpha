@@ -12,11 +12,11 @@ session_start();
 if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 {
     
-    
 
     if (isset($_POST['Opcao'])) 
     {
         $Botao = $_POST['Enviar'];
+        
         $_SESSION['FormaPgto'] = $_POST['Opcao'];
         $_SESSION['CondicaoPgto'] = $_POST['Parcelamento'];
         

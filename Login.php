@@ -29,16 +29,20 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 
                 while($Linhazinha = $Comandozinho -> fetch(PDO:: FETCH_OBJ))
                 {
+                    try{
                     $idcliente = $Linhazinha -> id_cliente;
                     $_SESSION["idCliente"] = $idcliente;
                     $_SESSION["control"] = "logado";
-                    echo "<script> alert('Logado com sucesso');</script>";
+                    echo "<script> alert('Logado com sucesso, caso queira mudar seus dados, mude em \"Cadastro\"');</script>";
+                    }
+                    finally{
                     header('location:Pgto.php'); 
+                    }
                 }
             }
             else
             {
-                echo "<script> alert('Usuario não encontrado');</script>";
+                echo "<script> alert('Usuario não encontrado, Cadastre primeiro apertando em \"Cadastro\"');</script>";
             }
         }        
     } 
@@ -72,11 +76,15 @@ else if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviar'))
             {
                 if($Comando2->rowCount()>0)
                 {
+                    try{
                     $_SESSION['emailContato'] = $Email;  
                     include 'respondercontato.php';
-                   
+                    }
+                    finally{
+                        echo "<script> alert('Nova senha enviada para o email informado');</script>";
+                    }
                 }
-                echo "<script> alert('Nova senha enviada para o email informado');</script>";
+                
                 
             }
             
@@ -108,7 +116,7 @@ else
 
     <div id="Esqueceu">
 
-    <p>Caso esqueceu a senha, insira um email que você tenha acesso:</p>
+    <p>Caso esqueceu a senha, insira o email cadastrado:</p>
     <input type="email" placeholder="Email" name="Email"><br><br>
     <input type="submit" value="Enviar" name="Botao"><br>
 

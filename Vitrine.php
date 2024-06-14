@@ -10,9 +10,7 @@
 session_start();
 if(1==1)
 {
-    $nada = "";
-    $_SESSION['idProd'] = $nada;
-    
+    $_SESSION['idProd']= null;
     include "conexao.php";
 
     $Matriz=$conexao->prepare("SELECT * FROM tb_produto");

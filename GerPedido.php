@@ -24,8 +24,9 @@
 
                 if($Comando-> rowCount() > 0)
                 {
+                    
                     echo "<script> alert('Dados alterados com sucesso');</script>";
-                    header('location:Vitrine.php');
+                    
                     
                 }
                 else
@@ -37,6 +38,7 @@
         
         else if($Botao == "Voltar para a Vitrine")
         {
+            $_SESSION['idProd'] = null;
             header('location:Vitrine.php');
         }
     }

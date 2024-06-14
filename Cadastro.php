@@ -37,8 +37,12 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
             {
                 if ($Comando->rowCount() >0)
                 {
-                    echo "Dados atualizados com sucesso";
+                    try{
+                    echo "<script> alert('Dados atualizados com sucesso');</script>";
+                    }
+                    finally{
                     header('location:Pgto.php');
+                    }
                 }
                 else
                 {
@@ -61,8 +65,15 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
             {
                 if ($Comando->rowCount() >0)
                 {
-                    echo "Cadastro realizado com sucesso";
-                    header('location:Login.php');
+                    
+                    try{
+                        echo "<script> alert('Cadastro realizado com sucesso');</script>";
+                        }
+                        finally{
+                            header('location:Login.php');
+                        }
+                    
+                    
                 }
             }
         }
@@ -70,9 +81,12 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     }
     else
     {
-        echo "Senhas não conferem";
-        echo "<a href='Cadastro.php'>Voltar</a>";
-        exit();
+        try{
+            echo "<script> alert('Senhas não conferem');</script>";
+            }
+            finally{
+                header('location:Cadastro.php');
+            }
     }
 }
 else{

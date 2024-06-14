@@ -35,9 +35,9 @@ if(1==1)
 
                 $_SESSION['produto_selecionado'] = $produto;
                 
-                echo "<p>Nome do Produto:$nomeProd</p>"."<br>";
-                echo "<p>Valor: R$ $valorProd</p>"."<br>";
-                echo "<p>Descrição: $desProd</p>"."<br>";
+                echo "Nome do Produto:$nomeProd"."<br>"."<br>";
+                echo "Valor: R$ $valorProd"."<br>"."<br>";
+                echo "Descrição: $desProd"."<br>";
                 ?>
                 <form action='Produto.php?valor=enviado' method='post'>
                 <input type='submit' name='BotaoEnviar' value='Comprar'>
@@ -47,12 +47,12 @@ if(1==1)
             } 
             else 
             {
-                echo "<p>Produto não encontrado.</p>";
+                echo "<script> alert('Produto não encontrado');</script>";
             }
         }
         else
         {
-            echo"<p>produto nao encontrado</p>";
+            echo "<script> alert('Produto não encontrado');</script>";
         }
         if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
         {

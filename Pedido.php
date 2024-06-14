@@ -40,12 +40,16 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
             {
                 if ($Comando->rowCount() >0)
                 {
+                    try{
                     echo"<script> alert('Pedido registrado com sucesso!')</script>";
+                    }
+                    finally{
                     header('location:GerPedido.php');
+                    }
                 }
                 else
                 {
-                        echo "Erro ao tentar efetivar o pedido.";
+                    echo"<script> alert('Erro ao efetivar o pedido')</script>";
                 }
             }
             else
