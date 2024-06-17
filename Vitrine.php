@@ -10,7 +10,7 @@
 session_start();
 if(1==1)
 {
-    $_SESSION['idProd']= null;
+    $_SESSION['idProd']= "";
     include "conexao.php";
 
     $Matriz=$conexao->prepare("SELECT * FROM tb_produto");
@@ -25,6 +25,7 @@ if(1==1)
             $valorProd = $Linha -> valor_prod;
             $desProd = $Linha -> des_prod;
             
+
             echo "<table border=1>";
             echo "<tr>";
             echo "<td> Id do produto </td>";
@@ -38,16 +39,18 @@ if(1==1)
             echo "<td>" . $valorProd. "</td>";
             echo "<td>" . $desProd. "</td>";
             echo "</tr>";
-            echo "</table> <br>" ;
-            echo "<img src='img/gato.webp' id='Imagem$idProduto' style='width: 20%; height: auto;'><br>";
+            echo "</table> <br>";
+           
+            echo "<img src='img/gato.webp' id='Imagem$idProduto' style='width: 20%; height: 20%;'><br>";
             echo "<form action='Vitrine.php?valor=enviado' method='post'>";
             echo "<input type='hidden' name='idProduto' value='$idProduto'>";
             echo "<input type='submit' name='Botao' value='Comprar'>";
             echo "</form>";
             echo "<br>";
 
-        ?>
-        <script>
+            
+            ?>
+            <script>
             document.addEventListener('DOMContentLoaded', function() {
                 mostrarImagem<?php echo $idProduto; ?>();
             });
@@ -56,25 +59,33 @@ if(1==1)
                 var imagem = document.getElementById("Imagem<?php echo $idProduto; ?>");
                 var idProd = <?php echo $idProduto; ?>;
 
-                if (idProd == 1) {
+                if (idProd == 1) 
+                {
+                   
                     imagem.src = "img/kindle.webp";
-                } else if (idProd == 2) {
+                } 
+                if (idProd == 2) 
+                {
+                    
                     imagem.src = "img/canon.webp";
                 }
                 
             }
         </script>
         <?php
-        
-            if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
+
+          
+        if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
             { 
-                $_SESSION['idProd'] = $idProduto;
-                header('location:Produto.php'); 
-            }
-        }
-        
+                $_SESSION['idProd'] = $_POST['idProduto']; // Salva o ID do produto na session
+                header('Location: Produto.php');
+                exit; 
+            }   
+        } 
+    
 }
-?>
+
+        ?>
 </body>
 </html>
 

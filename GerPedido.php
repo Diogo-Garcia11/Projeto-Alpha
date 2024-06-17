@@ -38,7 +38,7 @@
         
         else if($Botao == "Voltar para a Vitrine")
         {
-            $_SESSION['idProd'] = null;
+            $_SESSION['idProd'] = "";
             header('location:Vitrine.php');
         }
     }

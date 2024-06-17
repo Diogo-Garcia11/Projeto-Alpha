@@ -17,7 +17,7 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
 
     try 
     {
-        $Comandozinho=$conexao->prepare("SELECT * FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
+        $Comandozinho=$conexao->prepare("SELECT id_cliente, nome_cliente, endereco_cliente FROM tb_cliente WHERE email_cliente =? and senha_cliente =?");
 
         $Comandozinho->bindParam(1,$Usuario_cliente);
         $Comandozinho->bindParam(2,$Senha_cliente);    
@@ -31,7 +31,11 @@ if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
                 {
                     try{
                     $idcliente = $Linhazinha -> id_cliente;
+                    $Nome = $Linhazinha -> nome_cliente;
+                    $Endereco = $Linhazinha -> endereco_cliente;
                     $_SESSION["idCliente"] = $idcliente;
+                    $_SESSION['Nome'] = $Nome;
+                    $_SESSION['Endereco'] = $Endereco;
                     $_SESSION["control"] = "logado";
                     echo "<script> alert('Logado com sucesso, caso queira mudar seus dados, mude em \"Cadastro\"');</script>";
                     }
