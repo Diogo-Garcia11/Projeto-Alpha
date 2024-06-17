@@ -10,6 +10,7 @@
     session_start();
     if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
     {
+        
         $Nome = $_POST['Nome'];
         $Endereco = $_POST['Endereco'];
         $Botao = $_POST['Botao'];

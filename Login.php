@@ -80,13 +80,11 @@ else if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviar'))
             {
                 if($Comando2->rowCount()>0)
                 {
-                    try{
+                    
                     $_SESSION['emailContato'] = $Email;  
                     include 'respondercontato.php';
-                    }
-                    finally{
-                        echo "<script> alert('Nova senha enviada para o email informado');</script>";
-                    }
+                    echo "<script> alert('Nova senha enviada para o email informado');</script>";
+                    
                 }
                 
                 

@@ -8,7 +8,7 @@ require_once("phpmailer/class.phpmailer.php");
 
 include "senhaemail.php";
 $para = $email;
-$de = 'diogogarcia18@outlook.com'; //email do murilo
+$de = 'ketelilino@outlook.com'; //email do murilo
 $de_nome = 'Desenvolvedores Alpha sigma male';
 $assunto = "Recuperar senha";
 
@@ -39,7 +39,7 @@ function smtpmailer($para, $de, $de_nome, $assunto, $corpo){
 
 $vai = "E-mail: $email \n \n Resposta: $corpo";
 
- if(smtpmailer($email, 'diogogarcia18@outlook.com', 'Diogo Pinheiro Garcia', 'Nova Senha do Projeto Alpha', $vai)){
+ if(smtpmailer($email, 'ketelilino@outlook.com', 'Diogo Pinheiro Garcia', 'Nova Senha do Projeto Alpha', $vai)){
     echo('Enviado com sucesso');
     header('location:Login.php');
  }
