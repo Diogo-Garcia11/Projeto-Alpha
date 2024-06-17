@@ -15,7 +15,7 @@ if(1==1)
 
     $Matriz=$conexao->prepare("SELECT * FROM tb_produto");
 
-       
+
         $Matriz->execute();
         echo"<h1>Selecione o produto desejado:</h1>";
         while ($Linha = $Matriz -> fetch(PDO:: FETCH_OBJ))
@@ -39,13 +39,33 @@ if(1==1)
             echo "<td>" . $desProd. "</td>";
             echo "</tr>";
             echo "</table> <br>" ;
-            ?>
-            <form action="Vitrine.php?valor=enviado" method="post">
-            <input type="submit" name="Botao" value="Comprar">
-            </form>
-            <br>
-            <?php
-            
+            echo "<img src='img/gato.webp' id='Imagem$idProduto' style='width: 20%; height: auto;'><br>";
+            echo "<form action='Vitrine.php?valor=enviado' method='post'>";
+            echo "<input type='hidden' name='idProduto' value='$idProduto'>";
+            echo "<input type='submit' name='Botao' value='Comprar'>";
+            echo "</form>";
+            echo "<br>";
+
+        ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                mostrarImagem<?php echo $idProduto; ?>();
+            });
+
+            function mostrarImagem<?php echo $idProduto; ?>() {
+                var imagem = document.getElementById("Imagem<?php echo $idProduto; ?>");
+                var idProd = <?php echo $idProduto; ?>;
+
+                if (idProd == 1) {
+                    imagem.src = "img/kindle.webp";
+                } else if (idProd == 2) {
+                    imagem.src = "img/canon.webp";
+                }
+                
+            }
+        </script>
+        <?php
+        
             if(isset($_REQUEST['valor']) and ($_REQUEST['valor'] == 'enviado'))
             { 
                 $_SESSION['idProd'] = $idProduto;
@@ -54,12 +74,7 @@ if(1==1)
         }
         
 }
-else
-{
-    
 ?>
 </body>
 </html>
-<?php
-}
-?>
+
